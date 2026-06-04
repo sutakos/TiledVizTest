@@ -3,8 +3,7 @@ name: TiledViz Install Test
 
 on:
   workflow_dispatch:
-  #push:
-  
+
 jobs:
   Install-Ubuntu:
     runs-on: ubuntu-latest
@@ -64,10 +63,10 @@ jobs:
           send "n\r"
 
           expect "Please give the Docker name of PostGresQL DB (default: tiledvizpostg)."
-          send "tiledvizpostg"
+          send "tiledvizpostg\r"
 
           expect "Please give its external PORT (default: 6431)."
-          send "6431"
+          send "6431\r"
 
           expect "Please give a password for your postgresql DB : (forbiden '@', '/', '|' !)"
           send "$env(POSTGRESQL_PASSWORD)\r"
@@ -214,10 +213,10 @@ jobs:
           send "n\r"
 
           expect "Please give the Docker name of PostGresQL DB (default: tiledvizpostg)."
-          send "tiledvizpostg"
+          send "tiledvizpostg\r"
 
           expect "Please give its external PORT (default: 6431)."
-          send "6431"
+          send "6431\r"
 
           expect "Please give a password for your postgresql DB : (forbiden '@', '/', '|' !)"
           send "$env(POSTGRESQL_PASSWORD)\r"
