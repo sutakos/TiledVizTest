@@ -7,6 +7,22 @@ echo "If you want to use graphical installation, you need to install zenity pack
 echo "and set installX11=true in envTiledViz on your TiledViz source root, OK ?"
 #read OK
 
+echo "[DEBUG] --- Avant l'execution de source ---"
+echo "installX11 : '${installX11}'"
+echo "instalX11  : '${instalX11}'"
+echo "GraphicalInstall : '${GraphicalInstall}'"
+
+if source ./envTiledViz; then
+    echo "[DEBUG] Execution de source : SUCCES"
+else
+    echo "[DEBUG] ERREUR : Echec de l'execution de source ./envTiledViz"
+fi
+
+echo "[DEBUG] --- Apres l'execution de source ---"
+echo "installX11 : '${installX11}'"
+echo "instalX11  : '${instalX11}'"
+echo "GraphicalInstall : '${GraphicalInstall}'"
+
 source ./envTiledViz
 
 # if asked installX11 in ./envTiledViz rerun with graphical progress bar.
