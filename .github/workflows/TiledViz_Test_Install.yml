@@ -36,8 +36,8 @@ jobs:
           
       - name: Disable GUI Installation
         run: |
-          export GraphicalInstall=true
-
+          sed -i 's/installX11=.*/installX11=false/g' envTiledViz
+          
       - name: Run install script
         env:
           POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD }}
@@ -194,7 +194,7 @@ jobs:
           export DOCKER_BUILDKIT=1
 
           # Disable GUI Installation 
-          export GraphicalInstall=true
+          sed -i 's/installX11=.*/installX11=false/g' envTiledViz
 
           # Patch start_postgres
           sed -i 's/docker run -v/docker run -d -v/g' start_postgres
