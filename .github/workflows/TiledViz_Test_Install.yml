@@ -33,6 +33,11 @@ jobs:
             -out /etc/letsencrypt/archive/fullchain.pem \
             -subj "/C=FR/ST=IDF/L=Paris/O=TiledVizTest/CN=localhost"
           sudo chmod -R 755 /etc/letsencrypt
+          
+      - name: Disable GUI Installation
+        run: |
+          echo "installX11=false" > envTiledViz
+          chmod +x install.sh
 
       - name: Run install script
         env:
@@ -188,6 +193,9 @@ jobs:
           #!/bin/bash
           export BUILDKIT_PROGRESS=plain
           export DOCKER_BUILDKIT=1
+
+          # Disable GUI Installation 
+          echo "installX11=false" > envTiledViz
 
           # Patch start_postgres
           sed -i 's/docker run -v/docker run -d -v/g' start_postgres
