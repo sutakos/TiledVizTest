@@ -36,8 +36,7 @@ jobs:
           
       - name: Disable GUI Installation
         run: |
-          echo "installX11=false" > envTiledViz
-          chmod +x install.sh
+          export GraphicalInstall=true
 
       - name: Run install script
         env:
@@ -195,7 +194,7 @@ jobs:
           export DOCKER_BUILDKIT=1
 
           # Disable GUI Installation 
-          echo "installX11=false" > envTiledViz
+          export GraphicalInstall=true
 
           # Patch start_postgres
           sed -i 's/docker run -v/docker run -d -v/g' start_postgres
