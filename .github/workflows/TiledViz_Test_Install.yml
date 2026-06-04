@@ -3,12 +3,14 @@ name: TiledViz Install Test
 
 on:
   workflow_dispatch:
+  #push:
+  
 jobs:
   Install-Ubuntu:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+        uses: actions/checkout@v4
 
       - name: Install Python
         run: sudo apt-get install -y python3-pip
@@ -33,11 +35,7 @@ jobs:
             -out /etc/letsencrypt/archive/fullchain.pem \
             -subj "/C=FR/ST=IDF/L=Paris/O=TiledVizTest/CN=localhost"
           sudo chmod -R 755 /etc/letsencrypt
-          
-      - name: Disable GUI Installation
-        run: |
-          sed -i 's/installX11=.*/installX11=false/g' envTiledViz
-          
+
       - name: Run install script
         env:
           POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD }}
@@ -65,7 +63,13 @@ jobs:
           expect "Activate firewallT for Tiledviz ? : ('n' or 'y')"
           send "n\r"
 
-          expect "Please give a password for your postgresql DB : (no '@' or '/' !)"
+          expect "Please give the Docker name of PostGresQL DB (default: tiledvizpostg)."
+          send "tiledvizpostg"
+
+          expect "Please give its external PORT (default: 6431)."
+          send "6431"
+
+          expect "Please give a password for your postgresql DB : (forbiden '@', '/', '|' !)"
           send "$env(POSTGRESQL_PASSWORD)\r"
 
           expect "Please give a SERVER.DOMAIN for your SSL web server"
@@ -100,7 +104,7 @@ jobs:
           expect "Please give your NTP server address - the time server."
           send "$env(NTP_SERVER_ADDRESS)\r"
 
-          expect "Do you want to restore from a PostgreSQL dump file ? Please give the path to file or empty string if not"
+          expect "# Do you want to restore from a PostgreSQL dump file ? Please give the path to file or empty string if not"
           send "\r\r"
 
           expect "====== End build dockers ======"
@@ -136,7 +140,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+        uses: actions/checkout@v4
 
       - name: Generate mock SSL certificates for tests
         run: |
@@ -193,9 +197,6 @@ jobs:
           export BUILDKIT_PROGRESS=plain
           export DOCKER_BUILDKIT=1
 
-          # Disable GUI Installation 
-          sed -i 's/installX11=.*/installX11=false/g' envTiledViz
-
           # Patch start_postgres
           sed -i 's/docker run -v/docker run -d -v/g' start_postgres
           sed -i 's/ &//g' start_postgres
@@ -212,7 +213,13 @@ jobs:
           expect "Activate firewallT for Tiledviz ? : ('n' or 'y')"
           send "n\r"
 
-          expect "Please give a password for your postgresql DB : (no '@' or '/' !)"
+          expect "Please give the Docker name of PostGresQL DB (default: tiledvizpostg)."
+          send "tiledvizpostg"
+
+          expect "Please give its external PORT (default: 6431)."
+          send "6431"
+
+          expect "Please give a password for your postgresql DB : (forbiden '@', '/', '|' !)"
           send "$env(POSTGRESQL_PASSWORD)\r"
 
           expect "Please give a SERVER.DOMAIN for your SSL web server"
@@ -247,7 +254,7 @@ jobs:
           expect "Please give your NTP server address - the time server."
           send "$env(NTP_SERVER_ADDRESS)\r"
 
-          expect "Do you want to restore from a PostgreSQL dump file ? Please give the path to file or empty string if not"
+          expect "# Do you want to restore from a PostgreSQL dump file ? Please give the path to file or empty string if not"
           send "\r\r"
 
           expect "====== End build dockers ======"
