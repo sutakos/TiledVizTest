@@ -33,7 +33,6 @@ jobs:
             -keyout /etc/letsencrypt/archive/privkey.pem \
             -out /etc/letsencrypt/archive/fullchain.pem \
             -subj "/C=FR/ST=IDF/L=Paris/O=TiledVizTest/CN=localhost"
-          sudo chmod -R 755 /etc/letsencrypt
 
       - name: Run install script
         env:
@@ -148,7 +147,6 @@ jobs:
             -keyout /etc/letsencrypt/archive/privkey.pem \
             -out /etc/letsencrypt/archive/fullchain.pem \
             -subj "/C=FR/ST=IDF/L=Paris/O=TiledVizTest/CN=localhost"
-          sudo chmod -R 755 /etc/letsencrypt
 
       - name: Start Rocky Linux Environment
         run: |
@@ -257,6 +255,14 @@ jobs:
           send "\r\r"
 
           expect "====== End build dockers ======"
+          
+          echo "=== DOCKER PS ==="
+          docker ps -a
+          echo "=== DOCKER images ==="
+          docker images
+          echo "=== WHO AM I ==="
+          whoami
+          
           EXPECT_EOF
           SH_EOF
 
@@ -278,6 +284,12 @@ jobs:
               pg_isready -h $HOST_NUMERIC_IP -p 6431 && break
               sleep 2
           done
+          echo "=== DOCKER PS ==="
+          docker ps -a
+          echo "=== DOCKER images ==="
+          docker images
+          echo "=== WHO AM I ==="
+          whoami
 
           export PYTHONPATH="$PWD:$PWD/TVDatabase:$PYTHONPATH"
           expect << 'EXPECT_EOF'
@@ -287,6 +299,12 @@ jobs:
           send "$env(POSTGRESQL_PASSWORD)\r"
 
           expect "==== Running ... ===="
+          echo "=== DOCKER PS ==="
+          docker ps -a
+          echo "=== DOCKER images ==="
+          docker images
+          echo "=== WHO AM I ==="
+          whoami
           set timeout 5
           expect {
               eof {
