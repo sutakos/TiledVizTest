@@ -187,6 +187,16 @@ jobs:
           docker exec rocky dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
           docker exec rocky dnf install -y docker-ce-cli docker-buildx-plugin docker-compose-plugin
 
+          export UserId=$(id -u)
+          export GroupId=$(id -g)
+          docker exec rocky bash -c "groupadd -r -g $GroupId myuser && \
+            useradd -r -u $UserId -g myuser -s /bin/bash myuser && \
+            cp -rp /etc/skel /home/myuser && \
+            chown -R myuser:myuser /home/myuser"
+          docker exec rocky bash -c 'echo "myuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
+          docker exec rocky usermod -aG docker myuser
+          docker exec rocky chown -R myuser:myuser ${{ github.workspace }}
+
       - name: Install TiledViz
         run: |
           cat << 'SH_EOF' > run_install.sh
@@ -275,8 +285,8 @@ jobs:
           docker exec rocky whoami
 
           chmod +x run_install.sh
-          docker exec rocky ./run_install.sh
-
+          docker exec --user myuser rocky ./run_install.sh
+          
       - name: Launch TiledViz
         run: |
           cat << 'SH_EOF' > run_launch.sh
@@ -343,7 +353,7 @@ jobs:
           docker exec rocky whoami
           
           chmod +x run_launch.sh
-          docker exec rocky ./run_launch.sh
+          docker exec --user myuser rocky ./run_launch.sh
           docker exec rocky  echo "=== rocky DOCKER PS ==="
           docker exec rocky docker ps -a
           docker exec rocky echo "=== rocky DOCKER images ==="
