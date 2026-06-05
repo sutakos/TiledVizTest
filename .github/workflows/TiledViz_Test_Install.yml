@@ -256,15 +256,17 @@ jobs:
 
           expect "====== End build dockers ======"
           
+          
+          
+          EXPECT_EOF
+          SH_EOF
+
           echo "=== DOCKER PS ==="
           docker ps -a
           echo "=== DOCKER images ==="
           docker images
           echo "=== WHO AM I ==="
           whoami
-          
-          EXPECT_EOF
-          SH_EOF
 
           chmod +x run_install.sh
           docker exec rocky ./run_install.sh
@@ -284,6 +286,7 @@ jobs:
               pg_isready -h $HOST_NUMERIC_IP -p 6431 && break
               sleep 2
           done
+          
           echo "=== DOCKER PS ==="
           docker ps -a
           echo "=== DOCKER images ==="
@@ -299,12 +302,7 @@ jobs:
           send "$env(POSTGRESQL_PASSWORD)\r"
 
           expect "==== Running ... ===="
-          echo "=== DOCKER PS ==="
-          docker ps -a
-          echo "=== DOCKER images ==="
-          docker images
-          echo "=== WHO AM I ==="
-          whoami
+          
           set timeout 5
           expect {
               eof {
@@ -318,6 +316,13 @@ jobs:
           }
           EXPECT_EOF
           SH_EOF
-
+          
+          echo "=== DOCKER PS ==="
+          docker ps -a
+          echo "=== DOCKER images ==="
+          docker images
+          echo "=== WHO AM I ==="
+          whoami
+          
           chmod +x run_launch.sh
           docker exec rocky ./run_launch.sh
