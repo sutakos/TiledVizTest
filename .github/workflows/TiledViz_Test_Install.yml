@@ -267,6 +267,12 @@ jobs:
           docker images
           echo "=== WHO AM I ==="
           whoami
+          docker exec rocky  echo "=== rocky DOCKER PS ==="
+          docker exec rocky docker ps -a
+          docker exec rocky echo "=== rocky DOCKER images ==="
+          docker exec rocky docker images
+          docker exec rocky echo "=== rocky WHO AM I ==="
+          docker exec rocky whoami
 
           chmod +x run_install.sh
           docker exec rocky ./run_install.sh
@@ -293,6 +299,12 @@ jobs:
           docker images
           echo "=== WHO AM I ==="
           whoami
+          docker exec rocky  echo "=== rocky DOCKER PS ==="
+          docker exec rocky docker ps -a
+          docker exec rocky echo "=== rocky DOCKER images ==="
+          docker exec rocky docker images
+          docker exec rocky echo "=== rocky WHO AM I ==="
+          docker exec rocky whoami
 
           export PYTHONPATH="$PWD:$PWD/TVDatabase:$PYTHONPATH"
           expect << 'EXPECT_EOF'
@@ -323,6 +335,18 @@ jobs:
           docker images
           echo "=== WHO AM I ==="
           whoami
+          docker exec rocky  echo "=== rocky DOCKER PS ==="
+          docker exec rocky docker ps -a
+          docker exec rocky echo "=== rocky DOCKER images ==="
+          docker exec rocky docker images
+          docker exec rocky echo "=== rocky WHO AM I ==="
+          docker exec rocky whoami
           
           chmod +x run_launch.sh
           docker exec rocky ./run_launch.sh
+          docker exec rocky  echo "=== rocky DOCKER PS ==="
+          docker exec rocky docker ps -a
+          docker exec rocky echo "=== rocky DOCKER images ==="
+          docker exec rocky docker images
+          docker exec rocky echo "=== rocky WHO AM I ==="
+          docker exec rocky whoami
