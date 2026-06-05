@@ -150,8 +150,6 @@ jobs:
 
       - name: Start Rocky Linux Environment
         run: |
-          docker network create tiledviz-net
-
           cat << 'EOF' > rocky.env
           POSTGRESQL_PASSWORD=${{ secrets.POSTGRESQL_PASSWORD }}
           SERVER_DOMAIN=${{ secrets.SERVER_DOMAIN }}
@@ -170,7 +168,6 @@ jobs:
           EOF
 
           docker run -d --name rocky \
-            --network tiledviz-net \
             --add-host host.docker.internal:host-gateway \
             --env-file rocky.env \
             -v /var/run/docker.sock:/var/run/docker.sock \
