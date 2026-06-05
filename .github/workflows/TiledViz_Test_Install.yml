@@ -289,19 +289,7 @@ jobs:
       - name: Launch TiledViz
         run: |
           cat << 'SH_EOF' > run_launch.sh
-          #!/bin/bash
-          HOST_NUMERIC_IP=$(getent hosts host.docker.internal | awk '{ print $1 }')
-          if [ -f ~/.cache/envTiledViz ]; then
-              sed -i "s|export POSTGRES_HOST=.*|export POSTGRES_HOST=$HOST_NUMERIC_IP|g" ~/.cache/envTiledViz
-              sed -i "s|export POSTGRES_IP=.*|export POSTGRES_IP=$HOST_NUMERIC_IP|g" ~/.cache/envTiledViz
-          fi
 
-          echo "Waiting for Postgres on $HOST_NUMERIC_IP:6431..."
-          for i in $(seq 1 30); do
-              pg_isready -h $HOST_NUMERIC_IP -p 6431 && break
-              sleep 2
-          done
-          
           echo "=== DOCKER PS ==="
           docker ps -a
           echo "=== DOCKER images ==="
