@@ -204,13 +204,13 @@ jobs:
           export DOCKER_BUILDKIT=1
 
           # Patch start_postgres
-          sed -i 's/docker run -v/docker run -d -v/g' start_postgres
-          sed -i 's/ &//g' start_postgres
-          sed -i 's|-v $(pwd)/TVDatabase/postgresql/data:|-v tiledviz_db_data:|g' start_postgres
-          sed -i 's/-p ${POSTGRES_PORT}:5432 -e PGPORT=${POSTGRES_PORT}/-p ${POSTGRES_PORT}:5432/g' start_postgres
-          sed -i 's/sleep 5/sleep 15/g' start_postgres
-          sed -i '/tmp\/TiledViz\.sql/i \    mkdir -p $HOME/tmp' start_postgres
-          sed -i 's/export POSTGRES_HOST=$(docker inspect.*/export POSTGRES_HOST=host.docker.internal/g' start_postgres
+          #sed -i 's/docker run -v/docker run -d -v/g' start_postgres
+          #sed -i 's/ &//g' start_postgres
+          #sed -i 's|-v $(pwd)/TVDatabase/postgresql/data:|-v tiledviz_db_data:|g' start_postgres
+          #sed -i 's/-p ${POSTGRES_PORT}:5432 -e PGPORT=${POSTGRES_PORT}/-p ${POSTGRES_PORT}:5432/g' start_postgres
+          #sed -i 's/sleep 5/sleep 15/g' start_postgres
+          #sed -i '/tmp\/TiledViz\.sql/i \    mkdir -p $HOME/tmp' start_postgres
+          #sed -i 's/export POSTGRES_HOST=$(docker inspect.*/export POSTGRES_HOST=host.docker.internal/g' start_postgres
 
           expect << 'EXPECT_EOF'
           set timeout -1
