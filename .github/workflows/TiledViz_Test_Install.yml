@@ -182,7 +182,7 @@ jobs:
           docker exec rocky dnf install -y git sudo epel-release dnf-plugins-core
           docker exec rocky dnf install -y python3-pip screen htop lsof strace emacs-nox nano patch libcap-devel python3-devel postgresql expect openssl gcc postgresql-devel
           docker exec rocky dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-          docker exec rocky dnf install -y docker-ce-cli docker-buildx-plugin docker-compose-plugin
+          docker exec rocky dnf install -y docker-ce-cli docker-buildx-plugin
 
           export UserId=$(id -u)
           export GroupId=$(id -g)
@@ -204,9 +204,7 @@ jobs:
           export DOCKER_BUILDKIT=1
 
           # Patch start_postgres
-          # Permet de run le docker en detache
-          #sed -i 's/docker run -v/docker run -d -v/g' start_postgres
-          #sed -i 's/ &//g' start_postgres
+          
           # Repare le chemin a cause de la sortie du docker
           sed -i 's|-v $(pwd)/TVDatabase/postgresql/data:|-v tiledviz_db_data:|g' start_postgres
           # Correction d'un bug avec le -e PGPORT il faudrait modifier la prod ici
