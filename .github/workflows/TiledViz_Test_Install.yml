@@ -210,7 +210,7 @@ jobs:
           # Repare le chemin a cause de la sortie du docker
           sed -i 's|-v $(pwd)/TVDatabase/postgresql/data:|-v tiledviz_db_data:|g' start_postgres
           # Correction d'un bug avec le -e PGPORT il faudrait modifier la prod ici
-          #sed -i 's/-p ${POSTGRES_PORT}:5432 -e PGPORT=${POSTGRES_PORT}/-p ${POSTGRES_PORT}:5432/g' start_postgres
+          sed -i 's/-p ${POSTGRES_PORT}:5432 -e PGPORT=${POSTGRES_PORT}/-p ${POSTGRES_PORT}:5432/g' start_postgres
           # Augmentation du temps d'attente a cause des mauvaises perf
           sed -i 's/sleep 5/sleep 15/g' start_postgres
           # Creation d'un dossier tmp 
