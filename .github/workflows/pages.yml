@@ -29,7 +29,7 @@ jobs:
       - name: 4. Préparer le dossier HTML
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'html'
+          path: '@CMAKE_CURRENT_BINARY_DIR@/html'
 
       - name: 5. Déployer sur le site web
         id: deployment
