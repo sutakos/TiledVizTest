@@ -311,7 +311,7 @@ jobs:
               }
           }
           EXPECT_EOF
-          SH_EOF          
+          SH_EOF
           chmod +x run_launch.sh
           docker exec --user myuser rocky ./run_launch.sh
 
