@@ -204,9 +204,10 @@ jobs:
           export DOCKER_BUILDKIT=1
 
           # Patch start_postgres
+          echo "======== HOST POSTGRES ========"
           host_postgres = $(docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $postgresNAME)
           echo host_postgres
-          
+          echo "======== HOST POSTGRES ========"
           sed -i 's|-v $(pwd)/TVDatabase/postgresql/data:|-v tiledviz_db_data:|g' start_postgres
           sed -i 's/-p ${POSTGRES_PORT}:5432 -e PGPORT=${POSTGRES_PORT}/-p ${POSTGRES_PORT}:5432/g' start_postgres
           sed -i 's/sleep 5/sleep 15/g' start_postgres
