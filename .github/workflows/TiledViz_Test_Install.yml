@@ -290,12 +290,16 @@ jobs:
           #!/bin/bash
           HOST_NUMERIC_IP=$(getent hosts host.docker.internal | awk '{ print $1 }')
           if [ -f ~/.cache/envTiledViz ]; then
-              echo "======== HOST POSTGRES (AVANT sed) ========"
-              grep -E "POSTGRES_(HOST|IP)" ~/.cache/envTiledViz
+              source ~/.cache/envTiledViz
+              echo "======== HOST POSTGRES ========"
+              echo "$POSTGRES_HOST"
+              echo "======== HOST POSTGRES ========"
               sed -i "s|export POSTGRES_HOST=.*|export POSTGRES_HOST=$HOST_NUMERIC_IP|g" ~/.cache/envTiledViz
               sed -i "s|export POSTGRES_IP=.*|export POSTGRES_IP=$HOST_NUMERIC_IP|g" ~/.cache/envTiledViz
-              echo "======== HOST POSTGRES (APRES sed) ========"
-              grep -E "POSTGRES_(HOST|IP)" ~/.cache/envTiledViz
+              source ~/.cache/envTiledViz
+              echo "======== APRES SED HOST POSTGRES ========"
+              echo "$POSTGRES_HOST"
+              echo "======== APRES SED HOST POSTGRES ========"
           fi
 
           echo "Waiting for Postgres on $HOST_NUMERIC_IP:6431..."
