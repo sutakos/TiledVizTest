@@ -204,15 +204,11 @@ jobs:
           export DOCKER_BUILDKIT=1
 
           # Patch start_postgres
-          echo "======== HOST POSTGRES ========"
-          host_postgres = $(docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $postgresNAME)
-          echo host_postgres
-          echo "======== HOST POSTGRES ========"
           sed -i 's|-v $(pwd)/TVDatabase/postgresql/data:|-v tiledviz_db_data:|g' start_postgres
           sed -i 's/-p ${POSTGRES_PORT}:5432 -e PGPORT=${POSTGRES_PORT}/-p ${POSTGRES_PORT}:5432/g' start_postgres
           sed -i 's/sleep 5/sleep 15/g' start_postgres
           sed -i '/tmp\/TiledViz\.sql/i \    mkdir -p $HOME/tmp' start_postgres
-          sed -i 's/export POSTGRES_HOST=$(docker inspect.*/export POSTGRES_HOST=host.docker.internal/g' start_postgres
+          #sed -i 's/export POSTGRES_HOST=$(docker inspect.*/export POSTGRES_HOST=host.docker.internal/g' start_postgres
 
           expect << 'EXPECT_EOF'
           set timeout -1
@@ -294,8 +290,12 @@ jobs:
           #!/bin/bash
           HOST_NUMERIC_IP=$(getent hosts host.docker.internal | awk '{ print $1 }')
           if [ -f ~/.cache/envTiledViz ]; then
+              echo "======== HOST POSTGRES (AVANT sed) ========"
+              grep -E "POSTGRES_(HOST|IP)" ~/.cache/envTiledViz
               sed -i "s|export POSTGRES_HOST=.*|export POSTGRES_HOST=$HOST_NUMERIC_IP|g" ~/.cache/envTiledViz
               sed -i "s|export POSTGRES_IP=.*|export POSTGRES_IP=$HOST_NUMERIC_IP|g" ~/.cache/envTiledViz
+              echo "======== HOST POSTGRES (APRES sed) ========"
+              grep -E "POSTGRES_(HOST|IP)" ~/.cache/envTiledViz
           fi
 
           echo "Waiting for Postgres on $HOST_NUMERIC_IP:6431..."
