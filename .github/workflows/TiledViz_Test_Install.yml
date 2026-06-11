@@ -205,9 +205,12 @@ jobs:
 
           # Patch start_postgres
           sed -i 's|-v $(pwd)/TVDatabase/postgresql/data:|-v tiledviz_db_data:|g' start_postgres
-          sed -i 's/-p ${POSTGRES_PORT}:5432 -e PGPORT=${POSTGRES_PORT}/-p ${POSTGRES_PORT}:5432/g' start_postgres
+          #sed -i 's/-p ${POSTGRES_PORT}:5432 -e PGPORT=${POSTGRES_PORT}/-p ${POSTGRES_PORT}:5432/g' start_postgres
+          
           sed -i 's/sleep 5/sleep 15/g' start_postgres
+          
           sed -i '/tmp\/TiledViz\.sql/i \    mkdir -p $HOME/tmp' start_postgres
+          
           #sed -i 's/export POSTGRES_HOST=$(docker inspect.*/export POSTGRES_HOST=host.docker.internal/g' start_postgres
 
           expect << 'EXPECT_EOF'
@@ -268,19 +271,6 @@ jobs:
           EXPECT_EOF
           SH_EOF
 
-          echo "=== DOCKER PS ==="
-          docker ps -a
-          echo "=== DOCKER images ==="
-          docker images
-          echo "=== WHO AM I ==="
-          whoami
-          docker exec rocky  echo "=== rocky DOCKER PS ==="
-          docker exec rocky docker ps -a
-          docker exec rocky echo "=== rocky DOCKER images ==="
-          docker exec rocky docker images
-          docker exec rocky echo "=== rocky WHO AM I ==="
-          docker exec rocky whoami
-
           chmod +x run_install.sh
           docker exec --user myuser rocky ./run_install.sh
           
@@ -288,38 +278,17 @@ jobs:
         run: |
           cat << 'SH_EOF' > run_launch.sh
           #!/bin/bash
-          HOST_NUMERIC_IP=$(getent hosts host.docker.internal | awk '{ print $1 }')
-          if [ -f ~/.cache/envTiledViz ]; then
-              source ~/.cache/envTiledViz
-              echo "======== HOST POSTGRES ========"
-              echo "$POSTGRES_HOST"
-              echo "======== HOST POSTGRES ========"
-              sed -i "s|export POSTGRES_HOST=.*|export POSTGRES_HOST=$HOST_NUMERIC_IP|g" ~/.cache/envTiledViz
-              sed -i "s|export POSTGRES_IP=.*|export POSTGRES_IP=$HOST_NUMERIC_IP|g" ~/.cache/envTiledViz
-              source ~/.cache/envTiledViz
-              echo "======== APRES SED HOST POSTGRES ========"
-              echo "$POSTGRES_HOST"
-              echo "======== APRES SED HOST POSTGRES ========"
-          fi
+          # HOST_NUMERIC_IP=$(getent hosts host.docker.internal | awk '{ print $1 }')
+          # if [ -f ~/.cache/envTiledViz ]; then
+          #     sed -i "s|export POSTGRES_HOST=.*|export POSTGRES_HOST=$HOST_NUMERIC_IP|g" ~/.cache/envTiledViz
+          #     sed -i "s|export POSTGRES_IP=.*|export POSTGRES_IP=$HOST_NUMERIC_IP|g" ~/.cache/envTiledViz
+          # fi
 
-          echo "Waiting for Postgres on $HOST_NUMERIC_IP:6431..."
-          for i in $(seq 1 30); do
-              pg_isready -h $HOST_NUMERIC_IP -p 6431 && break
-              sleep 2
-          done
-          
-          echo "=== DOCKER PS ==="
-          docker ps -a
-          echo "=== DOCKER images ==="
-          docker images
-          echo "=== WHO AM I ==="
-          whoami
-          docker exec rocky  echo "=== rocky DOCKER PS ==="
-          docker exec rocky docker ps -a
-          docker exec rocky echo "=== rocky DOCKER images ==="
-          docker exec rocky docker images
-          docker exec rocky echo "=== rocky WHO AM I ==="
-          docker exec rocky whoami
+          # echo "Waiting for Postgres on $HOST_NUMERIC_IP:6431..."
+          # for i in $(seq 1 30); do
+          #     pg_isready -h $HOST_NUMERIC_IP -p 6431 && break
+          #     sleep 2
+          # done
 
           export PYTHONPATH="$PWD:$PWD/TVDatabase:$PYTHONPATH"
           expect << 'EXPECT_EOF'
@@ -342,26 +311,7 @@ jobs:
               }
           }
           EXPECT_EOF
-          SH_EOF
-          
-          echo "=== DOCKER PS ==="
-          docker ps -a
-          echo "=== DOCKER images ==="
-          docker images
-          echo "=== WHO AM I ==="
-          whoami
-          docker exec rocky  echo "=== rocky DOCKER PS ==="
-          docker exec rocky docker ps -a
-          docker exec rocky echo "=== rocky DOCKER images ==="
-          docker exec rocky docker images
-          docker exec rocky echo "=== rocky WHO AM I ==="
-          docker exec rocky whoami
-          
+          SH_EOF          
           chmod +x run_launch.sh
           docker exec --user myuser rocky ./run_launch.sh
-          docker exec rocky  echo "=== rocky DOCKER PS ==="
-          docker exec rocky docker ps -a
-          docker exec rocky echo "=== rocky DOCKER images ==="
-          docker exec rocky docker images
-          docker exec rocky echo "=== rocky WHO AM I ==="
-          docker exec rocky whoami
+
