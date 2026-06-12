@@ -169,6 +169,7 @@ jobs:
 
           docker run -d --name rocky \
           --add-host host.docker.internal:host-gateway \
+          --privileged \
           --env-file rocky.env \
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v /home/runner/work:/home/runner/work \
