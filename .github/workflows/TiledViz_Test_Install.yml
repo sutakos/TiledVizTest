@@ -195,6 +195,51 @@ jobs:
           docker exec rocky usermod -aG docker myuser
           docker exec rocky chown -R myuser:myuser ${{ github.workspace }}
           docker exec rocky chmod 666 /var/run/docker.sock
+          
+      - name: Install firewallT dependencies
+        run: |
+          docker exec rocky dnf install -y iptables-nft nftables openssh-server
+
+          cat << 'SH_EOF' > firewallT_setup.sh
+          set -e
+
+          # => edit /etc/ssh/sshd_config with a randomized SSH port
+          SSHport=$(</dev/urandom tr -dc '2481397056' | head -c5)
+          echo "Randomized SSH port: $SSHport"
+          sed -e "s&#Port 22&Port $SSHport&" -e "s&#GatewayPorts.*&GatewayPorts yes&" -i /etc/ssh/sshd_config
+
+          nft list ruleset || true
+          
+          cat >> /etc/sysconfig/nftables.conf << NFT_EOF
+          table inet filter {
+                  chain input {
+                          type filter hook input priority filter; policy drop;
+                          iif "lo" accept
+                          ct state established,related accept
+                          # Allow ping
+                          icmp type echo-request limit rate 5/second accept
+                          tcp dport $SSHport accept
+                          tcp dport 80 accept
+                          tcp dport 443 accept
+                  }
+          }
+          NFT_EOF
+
+          nft -f /etc/sysconfig/nftables.conf
+          nft add rule inet filter input tcp dport $SSHport accept
+          nft add rule inet filter input icmp type echo-request limit rate 5/second accept
+
+          # Add TILEDVIZ
+          nft add table ip filter
+          nft add chain ip filter TILEDVIZ
+          nft add rule ip filter TILEDVIZ tcp dport $SSHport accept
+
+          nft list ruleset
+          SH_EOF
+
+          chmod +x firewallT_setup.sh
+          docker exec rocky bash ./firewallT_setup.sh
+           
 
 
       - name: Install TiledViz
@@ -208,7 +253,7 @@ jobs:
           spawn ./install.sh
 
           expect "Activate firewallT for Tiledviz ? : ('n' or 'y')"
-          send "n\r"
+          send "y\r"
 
           expect "Please give the Docker name of PostGresQL DB (default: tiledvizpostg)."
           send "tiledvizpostg\r"
