@@ -200,12 +200,8 @@ jobs:
       - name: Install TiledViz
         run: |
           cat << 'SH_EOF' > run_install.sh
-          #!/bin/bash
           export BUILDKIT_PROGRESS=plain
           export DOCKER_BUILDKIT=1
-
-          # Patch start_postgres
-          #sed -i 's|-v $(pwd)/TVDatabase/postgresql/data:|-v tiledviz_db_data:|g' start_postgres
           
           expect << 'EXPECT_EOF'
           set timeout -1
@@ -266,7 +262,7 @@ jobs:
           SH_EOF
           
           chmod +x run_install.sh
-          docker exec --user myuser rocky ./run_install.sh
+          docker exec --user myuser rocky bash ./run_install.sh
           
       - name: Launch TiledViz
         run: |
