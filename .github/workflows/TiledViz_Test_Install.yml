@@ -268,21 +268,20 @@ jobs:
           
           EXPECT_EOF
           SH_EOF
-
+          
           chmod +x run_install.sh
           docker exec --user myuser rocky ./run_install.sh
           
       - name: Launch TiledViz
         run: |
           cat << 'SH_EOF' > run_launch.sh
-
+          
           export PYTHONPATH="$PWD:$PWD/TVDatabase:$PYTHONPATH"
           expect << 'EXPECT_EOF'
           set timeout -1
           spawn ./launch_TiledViz
           expect "Please give a password for your Flask server."
           send "$env(POSTGRESQL_PASSWORD)\r"
-
           expect "==== Running ... ===="
           
           set timeout 5
@@ -299,5 +298,4 @@ jobs:
           EXPECT_EOF
           SH_EOF
           chmod +x run_launch.sh
-          docker exec --user myuser rocky ./run_launch.sh
-
+          docker exec --user myuser rocky bash ./run_launch.sh
