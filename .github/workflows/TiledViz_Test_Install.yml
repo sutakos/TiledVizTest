@@ -168,13 +168,13 @@ jobs:
           EOF
 
           docker run -d --name rocky \
-            --add-host host.docker.internal:host-gateway \
-            --env-file rocky.env \
-            -v /var/run/docker.sock:/var/run/docker.sock \
-            -v ${{ github.workspace }}:${{ github.workspace }} \
-            -v /etc/letsencrypt:/etc/letsencrypt \
-            -w ${{ github.workspace }} \
-            rockylinux/rockylinux:9 sleep infinity
+          --add-host host.docker.internal:host-gateway \
+          --env-file rocky.env \
+          -v /var/run/docker.sock:/var/run/docker.sock \
+          -v /home/runner/work:/home/runner/work \
+          -v /etc/letsencrypt:/etc/letsencrypt \
+          -w ${{ github.workspace }} \
+          rockylinux/rockylinux:9 sleep infinity
 
       - name: Install Prerequisites
         run: |
@@ -186,10 +186,11 @@ jobs:
 
           export UserId=$(id -u)
           export GroupId=$(id -g)
+          export MYHOME=/home/runner/work/myuser-home
           docker exec rocky bash -c "groupadd -r -g $GroupId myuser && \
-            useradd -r -u $UserId -g myuser -s /bin/bash myuser && \
-            cp -rp /etc/skel /home/myuser && \
-            chown -R myuser:myuser /home/myuser"
+            useradd -r -u $UserId -g myuser -d $MYHOME -s /bin/bash myuser && \
+            cp -rp /etc/skel $MYHOME && \
+            chown -R myuser:myuser $MYHOME"
           docker exec rocky bash -c 'echo "myuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
           docker exec rocky usermod -aG docker myuser
           docker exec rocky chown -R myuser:myuser ${{ github.workspace }}
