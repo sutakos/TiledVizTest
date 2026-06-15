@@ -38,7 +38,7 @@ jobs:
         run: |
             cat << 'SH_EOF' > firewallT_setup.sh
             set -e
-            SSHport=$(</dev/urandom tr -dc '2481397056' | head -c5)
+            SSHport=$(shuf -i 49152-65535 -n 1)
             echo "Randomized SSH port selected: $SSHport"
             sed -e "s&#Port 22&Port $SSHport&" -e "s&#GatewayPorts.*&GatewayPorts yes&" -i /etc/ssh/sshd_config
             sudo cat << NFT_EOF > /etc/nftables.conf
@@ -234,7 +234,7 @@ jobs:
           set -e
 
           # => edit /etc/ssh/sshd_config with a randomized SSH port
-          SSHport=$(</dev/urandom tr -dc '2481397056' | head -c5)
+          SSHport=$(shuf -i 49152-65535 -n 1)
           echo "Randomized SSH port: $SSHport"
           sed -e "s&#Port 22&Port $SSHport&" -e "s&#GatewayPorts.*&GatewayPorts yes&" -i /etc/ssh/sshd_config
 
