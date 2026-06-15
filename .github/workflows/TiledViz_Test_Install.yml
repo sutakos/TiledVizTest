@@ -41,6 +41,13 @@ jobs:
             SSHport=$(shuf -i 49152-65535 -n 1)
             echo "Randomized SSH port selected: $SSHport"
             sed -e "s&#Port 22&Port $SSHport&" -e "s&#GatewayPorts.*&GatewayPorts yes&" -i /etc/ssh/sshd_config
+
+            if systemctl is-active --quiet ssh.socket; then
+                echo "Disabling SSH socket activation and switching to standard SSH service..."
+                sudo systemctl disable --now ssh.socket
+                sudo systemctl enable --now ssh.service
+            fi
+            
             sudo cat << NFT_EOF > /etc/nftables.conf
             table inet filter {
               chain input {
