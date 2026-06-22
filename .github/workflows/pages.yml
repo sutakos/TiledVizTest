@@ -17,20 +17,22 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: 1. Récupérer le code source
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: 2. Installer Doxygen
+      - name: Install Doxygen
         run: sudo apt-get update && sudo apt-get install -y doxygen
 
-      - name: 3. Générer la documentation
-        run: doxygen Doxyfile
+      - name: Get documentation
+        run: |
+        cd docs/doxygen
+        doxygen Doxyfile
 
-      - name: 4. Préparer le dossier HTML
+      - name: Prepare html dir.
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'docs/html'
+          path: 'docs/doxygen/templates/html'
 
-      - name: 5. Déployer sur le site web
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
