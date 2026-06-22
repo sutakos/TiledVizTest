@@ -1,0 +1,47 @@
+\doxysection{/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVWeb/\+\+Flask\+Docker Directory Reference}
+\hypertarget{dir_5a0fce41e69db1f05b05b0fd97c74479}{}\label{dir_5a0fce41e69db1f05b05b0fd97c74479}\index{/local/home/ll288128/Projets/TiledViz/TVWeb/FlaskDocker Directory Reference@{/local/home/ll288128/Projets/TiledViz/TVWeb/FlaskDocker Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{dir_5a0fce41e69db1f05b05b0fd97c74479_autotoc_md27}{}\doxysubsection{\texorpdfstring{Postgresql server on localhost}{Postgresql server on localhost}}\label{dir_5a0fce41e69db1f05b05b0fd97c74479_autotoc_md27}
+
+\begin{DoxyItemize}
+\item Default configuration :\+ postgresql is only visible for localhost 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ netstat\ -\/latupen\ |grep\ 5432}
+\DoxyCodeLine{tcp\ \ \ \ \ \ \ \ 0\ \ \ \ \ \ 0\ 127.0.0.1:5432\ \ \ \ \ \ \ \ \ \ 0.0.0.0:*\ LISTEN\ \ \ \ \ \ 968\ \ \ \ \ \ \ \ 20388\ \ \ \ \ \ 2118/postgres}
+\DoxyCodeLine{tcp6\ \ \ \ \ \ \ 0\ \ \ \ \ \ 0\ ::1:5432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :::*\ \ \ \ \ \ LISTEN\ \ \ \ \ \ 968\ \ \ \ \ \ \ \ 20387\ \ \ \ \ \ 2118/postgres\ \ \ \ \ }
+
+\end{DoxyCode}
+
+\end{DoxyItemize}\hypertarget{dir_5a0fce41e69db1f05b05b0fd97c74479_autotoc_md28}{}\doxysubsection{\texorpdfstring{How to enable inside docker Flask\+Image ?}{How to enable inside docker Flask\+Image ?}}\label{dir_5a0fce41e69db1f05b05b0fd97c74479_autotoc_md28}
+
+\begin{DoxyEnumerate}
+\item Get docker0 address /\+sbin/\+ip -\/4 addr show docker0 \texorpdfstring{$\vert$}{|} grep -\/Po \textquotesingle{}inet \textbackslash{}K\+[\textbackslash{}d.]\++\textquotesingle{}
+\end{DoxyEnumerate}
+
+and to protect the DB and you must add docker0 address (and note all network interfaces) in postgresql conf file (and \textquotesingle{}\texorpdfstring{$\ast$}{*}\textquotesingle{} for all interfaces):\+ nano /\+var/\+lib/\+pgsql/\+data/\+postgresql.conf listen\+\_\+addresses = \textquotesingle{}localhost,172.\+17.\+0.\+1\textquotesingle{} \% \texorpdfstring{$\ast$}{*} pg\+\_\+hba.\+conf :\+ \% {\ttfamily host all all 0.\+0.\+0.\+0/\+0 trust} \% {\bfseries{It opens your postgresql service to the whole world !}}
+
+
+\begin{DoxyEnumerate}
+\item restart server:\+ {\ttfamily systemctl restart postgresql}
+\item verify:\+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ netstat\ -\/latupen\ |grep\ 5432}
+\DoxyCodeLine{tcp\ \ \ \ \ \ \ \ 0\ \ \ \ \ \ 0\ 172.17.0.1:5432\ \ \ \ \ \ \ \ \ 0.0.0.0:*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LISTEN\ \ \ \ \ \ 980\ \ \ \ \ \ \ \ 1005010\ \ \ \ 28363/postgres\ \ \ \ \ \ }
+\DoxyCodeLine{tcp\ \ \ \ \ \ \ \ 0\ \ \ \ \ \ 0\ 127.0.0.1:5432\ \ \ \ \ \ \ \ \ \ 0.0.0.0:*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LISTEN\ \ \ \ \ \ 980\ \ \ \ \ \ \ \ 1005009\ \ \ \ 28363/postgres\ \ \ \ \ \ }
+\DoxyCodeLine{tcp6\ \ \ \ \ \ \ 0\ \ \ \ \ \ 0\ ::1:5432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :::*\ \ \ \ \ \ LISTEN\ \ \ \ \ \ 980\ \ \ \ \ \ \ \ 1556942\ \ \ \ 9599/postgres\ \ }
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}\hypertarget{dir_5a0fce41e69db1f05b05b0fd97c74479_autotoc_md29}{}\doxysubsection{\texorpdfstring{Launch container with host (192.\+168.\+0.\+12 here) postgresql server :\+}{Launch container with host (192.\+168.\+0.\+12 here) postgresql server :\+}}\label{dir_5a0fce41e69db1f05b05b0fd97c74479_autotoc_md29}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{export\ POSTGRES\_HOST=postgres}
+\DoxyCodeLine{export\ POSTGRES\_DB=}
+\DoxyCodeLine{export\ POSTGRES\_PASSWORD=}
+\DoxyCodeLine{export\ POSTGRES\_USER=}
+\DoxyCodeLine{docker\ run\ -\/it\ -\/-\/name\ flaskdock\ -\/-\/add-\/host="{}postgres:192.168.0.12"{}\ -\/p\ 5000\ flaskimage\ \ \$\{POSTGRES\_HOST\}\ \$\{POSTGRES\_DB\}\ \$\{POSTGRES\_USER\}\ \$\{POSTGRES\_PASSWORD\}}
+
+\end{DoxyCode}
+ 

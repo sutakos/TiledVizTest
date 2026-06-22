@@ -1,0 +1,46 @@
+\doxysection{TVDb.\+models.\+Projects Class Reference}
+\hypertarget{classTVDb_1_1models_1_1Projects}{}\label{classTVDb_1_1models_1_1Projects}\index{TVDb.models.Projects@{TVDb.models.Projects}}
+Inheritance diagram for TVDb.\+models.\+Projects:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classTVDb_1_1models_1_1Projects}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Projects_a8baab747def2c28a7b8160f314d8c82c}\label{classTVDb_1_1models_1_1Projects_a8baab747def2c28a7b8160f314d8c82c} 
+Mapped {\bfseries id} = mapped\+\_\+column(Integer, primary\+\_\+key=True)
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Projects_ae3db2d09c7efbbc29d792c04e61d11ff}\label{classTVDb_1_1models_1_1Projects_ae3db2d09c7efbbc29d792c04e61d11ff} 
+Mapped {\bfseries name} = mapped\+\_\+column(String(80), nullable=False)
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Projects_a10049f2dc01562fb1d66b7c7ef52c05a}\label{classTVDb_1_1models_1_1Projects_a10049f2dc01562fb1d66b7c7ef52c05a} 
+Mapped {\bfseries role\+\_\+type} = mapped\+\_\+column(String(20), nullable=False, comment=\textquotesingle{}Type de rôle dans le projet\textquotesingle{})
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Projects_a2cd8abab3ff2aa6cb6a9f69f362c84f2}\label{classTVDb_1_1models_1_1Projects_a2cd8abab3ff2aa6cb6a9f69f362c84f2} 
+Mapped {\bfseries id\+\_\+users} = mapped\+\_\+column(Integer)
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Projects_af4395b34a53d6142723ec1db6949c9d2}\label{classTVDb_1_1models_1_1Projects_af4395b34a53d6142723ec1db6949c9d2} 
+Mapped {\bfseries creation\+\_\+date} = mapped\+\_\+column(Date\+Time)
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Projects_ab193bcdd6404422293784ad10c793957}\label{classTVDb_1_1models_1_1Projects_ab193bcdd6404422293784ad10c793957} 
+Mapped {\bfseries description} = mapped\+\_\+column(String(120))
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Projects_ae7d8a6d8beb5fe8b48cb3c19477751d1}\label{classTVDb_1_1models_1_1Projects_ae7d8a6d8beb5fe8b48cb3c19477751d1} 
+Mapped {\bfseries users} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classTVDb_1_1models_1_1Users}{Users}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}projects\textquotesingle{})
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Projects_a06c34a19b23e09743f11140f8cb652a7}\label{classTVDb_1_1models_1_1Projects_a06c34a19b23e09743f11140f8cb652a7} 
+Mapped {\bfseries project\+\_\+members\+\_\+id\+\_\+projects} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classTVDb_1_1models_1_1ProjectMembers}{Project\+Members}}\textquotesingle{}, foreign\+\_\+keys=\textquotesingle{}\+[Project\+Members.\+id\+\_\+projects]\+\textquotesingle{}, back\+\_\+populates=\textquotesingle{}projects\textquotesingle{})
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Projects_a1ed920d4cd48b53b605c93a1ab053032}\label{classTVDb_1_1models_1_1Projects_a1ed920d4cd48b53b605c93a1ab053032} 
+Mapped {\bfseries project\+\_\+members\+\_\+project} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classTVDb_1_1models_1_1ProjectMembers}{Project\+Members}}\textquotesingle{}, foreign\+\_\+keys=\textquotesingle{}\+[Project\+Members.\+project\+\_\+id]\+\textquotesingle{}, back\+\_\+populates=\textquotesingle{}project\textquotesingle{})
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Projects_ab81ebf8d9918a7f3fecfbb8925ac263c}\label{classTVDb_1_1models_1_1Projects_ab81ebf8d9918a7f3fecfbb8925ac263c} 
+Mapped {\bfseries sessions} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classTVDb_1_1models_1_1Sessions}{Sessions}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}projects\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVDatabase/\+\+TVDb/\+models.\+py\end{DoxyCompactItemize}

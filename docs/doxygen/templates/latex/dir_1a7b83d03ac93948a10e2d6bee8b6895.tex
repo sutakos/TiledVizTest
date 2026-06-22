@@ -1,0 +1,27 @@
+\doxysection{/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVDatabase Directory Reference}
+\hypertarget{dir_1a7b83d03ac93948a10e2d6bee8b6895}{}\label{dir_1a7b83d03ac93948a10e2d6bee8b6895}\index{/local/home/ll288128/Projets/TiledViz/TVDatabase Directory Reference@{/local/home/ll288128/Projets/TiledViz/TVDatabase Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \doxymbox{\hyperlink{dir_ce010a013b2e0d03c285cf0e5041c373}{postgresql}}
+\item 
+directory \doxymbox{\hyperlink{dir_46ffa89fac18ba08a01d2d94160b0f4a}{TVDb}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Database is constructed with pgmodeler
+
+To initialize the postgres DB on localhost, you must use root account and change to postgres and create tiledviz role :\+ \{\{\{ \+[myyser@localhost]\+ su -\/ \+[root@localhost]\+\# su -\/ postgres \+[postgres@localhost \texorpdfstring{$\sim$}{\string~}]\+\$ createuser -\/h localhost -\/d tiledviz \}\}\} Finnaly you have to create the Tiled\+Viz DB with you account :\+ \{\{\{ \+[myyser@localhost]\+ createdb -\/h localhost -\/U tiledviz Tiled\+Viz \}\}\}
+
+It is created with exported Tiled\+Viz.\+sql file. Example in TVDatabase/\+filled\+Database.\+sh \{\{\{ psql -\/h "{}\$\{\+POSTGRES\+\_\+\+HOST\}"{} -\/U "{}\$\+POSTGRES\+\_\+\+USER"{} -\/d "{}\$\+POSTGRES\+\_\+\+DB"{} -\/f TVDatabase/\+\+Tiled\+Viz.\+sql \}\}\}
+
+model.\+py used by Flask and connections is built with :\+ sqlacodegen postgres:\+/\+/\+user:\+password/\+host@db --outfile=models.\+py --flask
+
+user:\+password are given in the start file of database constructor.
+
+Management functions on the database :\+ definitions in management.\+sql Add with \{\{\{ psql -\/h localhost -\/U tiledviz -\/d Tiled\+Viz -\/f TVDatabase/\+management.\+sql \}\}\} View unused tilesets with :\+ VIEW Free\+Tile\+Sets
+
+TODO :\+ build unused view for empty sessions and delete unused sessions. VIEW Empty\+Sessions
+
+TODO :\+ add admin column for user table, build flask management pages. 

@@ -1,0 +1,103 @@
+\doxysection{TVSecure.\+Flask\+Docker Class Reference}
+\hypertarget{classTVSecure_1_1FlaskDocker}{}\label{classTVSecure_1_1FlaskDocker}\index{TVSecure.FlaskDocker@{TVSecure.FlaskDocker}}
+Inheritance diagram for TVSecure.\+Flask\+Docker:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classTVSecure_1_1FlaskDocker}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_a3f65f8c1bcb17646c3be677ab8c06d89}\label{classTVSecure_1_1FlaskDocker_a3f65f8c1bcb17646c3be677ab8c06d89} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, POSTGRES\+\_\+\+HOST=POSTGRES\+\_\+\+HOST, POSTGRES\+\_\+\+IP=POSTGRES\+\_\+\+IP, POSTGRES\+\_\+\+PORT=POSTGRES\+\_\+\+PORT, POSTGRES\+\_\+\+DB=POSTGRES\+\_\+\+DB, POSTGRES\+\_\+\+USER=POSTGRES\+\_\+\+USER, POSTGRES\+\_\+\+PASSWORD=POSTGRES\+\_\+\+PASSWORD, SMTP\+\_\+\+PASSWORD=SMTP\+\_\+\+PASSWORD, secret\+Key=secret\+Key)
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_a02206d156d94737f7ad91b9623863dd3}\label{classTVSecure_1_1FlaskDocker_a02206d156d94737f7ad91b9623863dd3} 
+{\bfseries run} (self, POSTGRES\+\_\+\+HOST=POSTGRES\+\_\+\+HOST, POSTGRES\+\_\+\+IP=POSTGRES\+\_\+\+IP, POSTGRES\+\_\+\+PORT=POSTGRES\+\_\+\+PORT, POSTGRES\+\_\+\+DB=POSTGRES\+\_\+\+DB, POSTGRES\+\_\+\+USER=POSTGRES\+\_\+\+USER, POSTGRES\+\_\+\+PASSWORD=POSTGRES\+\_\+\+PASSWORD, SMTP\+\_\+\+PASSWORD=SMTP\+\_\+\+PASSWORD, secret\+Key=secret\+Key)
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_adbb47e3ea10f80ef3d6267e95eeaf8c8}\label{classTVSecure_1_1FlaskDocker_adbb47e3ea10f80ef3d6267e95eeaf8c8} 
+{\bfseries isalive} (self)
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_aa68fd9843669a052bb0c4904ac0fcb0f}\label{classTVSecure_1_1FlaskDocker_aa68fd9843669a052bb0c4904ac0fcb0f} 
+{\bfseries get\+Log} (self, nb\+Lines)
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_a815780cd814292999f4281ba81c9098c}\label{classTVSecure_1_1FlaskDocker_a815780cd814292999f4281ba81c9098c} 
+{\bfseries get\+Container\+Flask} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{classTVSecure_1_1FlaskDocker_a718c69a2c790fa4e14a618c03d415b0a}{thread}}
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_aa2ebcea57decd117d50310a75165eb26}\label{classTVSecure_1_1FlaskDocker_aa2ebcea57decd117d50310a75165eb26} 
+{\bfseries oldtime} = time.\+time()
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_a08360d7ff560ad462a6e225494a1e161}\label{classTVSecure_1_1FlaskDocker_a08360d7ff560ad462a6e225494a1e161} 
+list {\bfseries command\+Flask} = \+[POSTGRES\+\_\+\+HOST,POSTGRES\+\_\+\+PORT, POSTGRES\+\_\+\+DB, POSTGRES\+\_\+\+USER, POSTGRES\+\_\+\+PASSWORD, flaskaddr, str(os.\+getuid()),str(os.\+getgid()), SMTP\+\_\+\+PASSWORD, secret\+Key]\+
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_a27ba29de0412e22bdf9a41b644ff19cd}\label{classTVSecure_1_1FlaskDocker_a27ba29de0412e22bdf9a41b644ff19cd} 
+dict {\bfseries postgres\+Host} = \{POSTGRES\+\_\+\+HOST:\+\+POSTGRES\+\_\+\+IP\}
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_a4e80974eed84fa276baa4c2ebc2d1a54}\label{classTVSecure_1_1FlaskDocker_a4e80974eed84fa276baa4c2ebc2d1a54} 
+dict {\bfseries flask\+PORT} = \{\textquotesingle{}443/\+tcp\textquotesingle{}:\+(\textquotesingle{}0.\+0.\+0.\+0\textquotesingle{},443),\textquotesingle{}80/\+tcp\textquotesingle{}:\+(\textquotesingle{}0.\+0.\+0.\+0\textquotesingle{},80),\textquotesingle{}5000/\+tcp\textquotesingle{}:\+(\textquotesingle{}0.\+0.\+0.\+0\textquotesingle{},5000)\}
+\item 
+\doxymbox{\hyperlink{classTVSecure_1_1FlaskDocker_ad766e335fab8e1afa2f4ec3fb0bd16e5}{container\+Flask}}
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_ae762c6a30f881b5ebb085cb814d6c1fd}\label{classTVSecure_1_1FlaskDocker_ae762c6a30f881b5ebb085cb814d6c1fd} 
+str {\bfseries user} = "{}flaskusr"{}
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_ac991c650f84ff857fa55578d96543031}\label{classTVSecure_1_1FlaskDocker_ac991c650f84ff857fa55578d96543031} 
+str {\bfseries home} = "{}/\+home/\+flaskusr"{}
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_a9f7f8a896581f18310faf717209889e2}\label{classTVSecure_1_1FlaskDocker_a9f7f8a896581f18310faf717209889e2} 
+{\bfseries id\+Flask} = self.\+container\+Flask.\+id
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_af857daa01c276940fcee72d6cfa56a0f}\label{classTVSecure_1_1FlaskDocker_af857daa01c276940fcee72d6cfa56a0f} 
+{\bfseries daterun} = datetime.\+datetime.\+now()
+\item 
+\Hypertarget{classTVSecure_1_1FlaskDocker_a162c69675af5f2ed765c7dc87160e828}\label{classTVSecure_1_1FlaskDocker_a162c69675af5f2ed765c7dc87160e828} 
+{\bfseries Logs} = self.\+container\+Flask.\+logs(timestamps=True,since=int(self.\+oldtime),tail=nb\+Lines).decode("{}utf-\/8"{})
+\end{DoxyCompactItemize}
+
+
+\label{classTVSecure_1_1FlaskDocker_doc-variable-members}
+\Hypertarget{classTVSecure_1_1FlaskDocker_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classTVSecure_1_1FlaskDocker_ad766e335fab8e1afa2f4ec3fb0bd16e5}\index{TVSecure.FlaskDocker@{TVSecure.FlaskDocker}!containerFlask@{containerFlask}}
+\index{containerFlask@{containerFlask}!TVSecure.FlaskDocker@{TVSecure.FlaskDocker}}
+\doxysubsubsection{\texorpdfstring{containerFlask}{containerFlask}}
+{\footnotesize\ttfamily \label{classTVSecure_1_1FlaskDocker_ad766e335fab8e1afa2f4ec3fb0bd16e5} 
+TVSecure.\+Flask\+Docker.\+container\+Flask}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ client.containers.create(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name=\textcolor{stringliteral}{"{}flaskdock"{}},\ image=\textcolor{stringliteral}{"{}flaskimage"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mounts=[TVvolume,TVssl,TVnginx],\ extra\_hosts=self.postgresHost,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ command=self.commandFlask,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ports=self.flaskPORT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ environment=ENVFlask,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ log\_config=TVlogs,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ detach=\textcolor{keyword}{True})}
+
+\end{DoxyCode}
+\Hypertarget{classTVSecure_1_1FlaskDocker_a718c69a2c790fa4e14a618c03d415b0a}\index{TVSecure.FlaskDocker@{TVSecure.FlaskDocker}!thread@{thread}}
+\index{thread@{thread}!TVSecure.FlaskDocker@{TVSecure.FlaskDocker}}
+\doxysubsubsection{\texorpdfstring{thread}{thread}}
+{\footnotesize\ttfamily \label{classTVSecure_1_1FlaskDocker_a718c69a2c790fa4e14a618c03d415b0a} 
+TVSecure.\+Flask\+Docker.\+thread}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ threading.Thread(target=self.run,\ name=\textcolor{stringliteral}{"{}TVSecureServer"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ args=(\ POSTGRES\_HOST,\ POSTGRES\_IP,\ POSTGRES\_PORT,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ POSTGRES\_DB,\ POSTGRES\_USER,\ POSTGRES\_PASSWORD,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SMTP\_PASSWORD,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ secretKey))}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVSecure/\+TVSecure.\+py\end{DoxyCompactItemize}

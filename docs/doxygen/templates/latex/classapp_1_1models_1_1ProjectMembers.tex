@@ -1,0 +1,46 @@
+\doxysection{app.\+models.\+Project\+Members Class Reference}
+\hypertarget{classapp_1_1models_1_1ProjectMembers}{}\label{classapp_1_1models_1_1ProjectMembers}\index{app.models.ProjectMembers@{app.models.ProjectMembers}}
+Inheritance diagram for app.\+models.\+Project\+Members:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classapp_1_1models_1_1ProjectMembers}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classapp_1_1models_1_1ProjectMembers_a87a22ddcb7ae04ceefc41bb710149336}\label{classapp_1_1models_1_1ProjectMembers_a87a22ddcb7ae04ceefc41bb710149336} 
+Mapped {\bfseries project\+\_\+id} = mapped\+\_\+column(Integer, primary\+\_\+key=True, comment=\textquotesingle{}Reference to projects table\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1ProjectMembers_a3b7728d88acbd83e972848c22fd67f8d}\label{classapp_1_1models_1_1ProjectMembers_a3b7728d88acbd83e972848c22fd67f8d} 
+Mapped {\bfseries user\+\_\+id} = mapped\+\_\+column(Integer, primary\+\_\+key=True, comment=\textquotesingle{}Reference to users table\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1ProjectMembers_aa42211d748a3337baa6fa6aa4c443e39}\label{classapp_1_1models_1_1ProjectMembers_aa42211d748a3337baa6fa6aa4c443e39} 
+Mapped {\bfseries role\+\_\+type} = mapped\+\_\+column(String(20), nullable=False, server\+\_\+default=text("{}\textquotesingle{}viewer\textquotesingle{}::\+character varying"{}), comment=\textquotesingle{}Role of the user in this project\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1ProjectMembers_a36c974c26a96dc7ab0eeef4c481fce22}\label{classapp_1_1models_1_1ProjectMembers_a36c974c26a96dc7ab0eeef4c481fce22} 
+Mapped {\bfseries joined\+\_\+at} = mapped\+\_\+column(Date\+Time, server\+\_\+default=text(\textquotesingle{}CURRENT\+\_\+\+TIMESTAMP\textquotesingle{}), comment=\textquotesingle{}When the user joined the project\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1ProjectMembers_a6b560a623f4ca4c3fca99735d6d14417}\label{classapp_1_1models_1_1ProjectMembers_a6b560a623f4ca4c3fca99735d6d14417} 
+Mapped {\bfseries id\+\_\+users} = mapped\+\_\+column(Integer)
+\item 
+\Hypertarget{classapp_1_1models_1_1ProjectMembers_adca6f0a0e658853e0139c6be6965981b}\label{classapp_1_1models_1_1ProjectMembers_adca6f0a0e658853e0139c6be6965981b} 
+Mapped {\bfseries id\+\_\+projects} = mapped\+\_\+column(Integer)
+\item 
+\Hypertarget{classapp_1_1models_1_1ProjectMembers_a089aeb5c73ca07a33b445e26e8a4a253}\label{classapp_1_1models_1_1ProjectMembers_a089aeb5c73ca07a33b445e26e8a4a253} 
+Mapped {\bfseries projects} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Projects}{Projects}}\textquotesingle{}, foreign\+\_\+keys=\+[id\+\_\+projects]\+, back\+\_\+populates=\textquotesingle{}project\+\_\+members\+\_\+id\+\_\+projects\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1ProjectMembers_a00eea628603deab6b69a2feb5f5fe124}\label{classapp_1_1models_1_1ProjectMembers_a00eea628603deab6b69a2feb5f5fe124} 
+Mapped {\bfseries users} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Users}{Users}}\textquotesingle{}, foreign\+\_\+keys=\+[id\+\_\+users]\+, back\+\_\+populates=\textquotesingle{}project\+\_\+members\+\_\+id\+\_\+users\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1ProjectMembers_a9f6ed74533ece8f01e953ef5b2209b97}\label{classapp_1_1models_1_1ProjectMembers_a9f6ed74533ece8f01e953ef5b2209b97} 
+Mapped {\bfseries project} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Projects}{Projects}}\textquotesingle{}, foreign\+\_\+keys=\+[project\+\_\+id]\+, back\+\_\+populates=\textquotesingle{}project\+\_\+members\+\_\+project\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1ProjectMembers_a04cede4a02c24db6af1683087fcfc369}\label{classapp_1_1models_1_1ProjectMembers_a04cede4a02c24db6af1683087fcfc369} 
+Mapped {\bfseries user} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Users}{Users}}\textquotesingle{}, foreign\+\_\+keys=\+[user\+\_\+id]\+, back\+\_\+populates=\textquotesingle{}project\+\_\+members\+\_\+user\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVWeb/\+app/\+models.\+py\end{DoxyCompactItemize}

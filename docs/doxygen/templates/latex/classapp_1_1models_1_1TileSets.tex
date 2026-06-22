@@ -1,0 +1,52 @@
+\doxysection{app.\+models.\+Tile\+Sets Class Reference}
+\hypertarget{classapp_1_1models_1_1TileSets}{}\label{classapp_1_1models_1_1TileSets}\index{app.models.TileSets@{app.models.TileSets}}
+Inheritance diagram for app.\+models.\+Tile\+Sets:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classapp_1_1models_1_1TileSets}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classapp_1_1models_1_1TileSets_aa69d4f9040e444f7851bf4c33019b83b}\label{classapp_1_1models_1_1TileSets_aa69d4f9040e444f7851bf4c33019b83b} 
+Mapped {\bfseries id} = mapped\+\_\+column(Integer, primary\+\_\+key=True)
+\item 
+\Hypertarget{classapp_1_1models_1_1TileSets_a276e8809ae4ba78314881e45487a3a2a}\label{classapp_1_1models_1_1TileSets_a276e8809ae4ba78314881e45487a3a2a} 
+Mapped {\bfseries name} = mapped\+\_\+column(String(80), nullable=False)
+\item 
+\Hypertarget{classapp_1_1models_1_1TileSets_a1feb7fd4ab1700089ae2d786f495a385}\label{classapp_1_1models_1_1TileSets_a1feb7fd4ab1700089ae2d786f495a385} 
+Mapped {\bfseries type\+\_\+of\+\_\+tiles} = mapped\+\_\+column(String(15), nullable=False, comment=\textquotesingle{}must discribe the nature sources of the tiles connected for this tile\+\_\+set. In this list :\+ web png, local image, remote database file, set of database remote files\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1TileSets_aba846c721f9c49a33a7d2a520fbfecdc}\label{classapp_1_1models_1_1TileSets_aba846c721f9c49a33a7d2a520fbfecdc} 
+Mapped {\bfseries Dataset\+\_\+path} = mapped\+\_\+column(String(100), comment=\textquotesingle{}Path of the database for this tile\+\_\+set.\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1TileSets_a59b6c9c2ccba06e13f6726ea8828eab5}\label{classapp_1_1models_1_1TileSets_a59b6c9c2ccba06e13f6726ea8828eab5} 
+Mapped {\bfseries id\+\_\+connections} = mapped\+\_\+column(Integer)
+\item 
+\Hypertarget{classapp_1_1models_1_1TileSets_a92a793ad624cfc2a975282e28b87a2e0}\label{classapp_1_1models_1_1TileSets_a92a793ad624cfc2a975282e28b87a2e0} 
+Mapped {\bfseries creation\+\_\+date} = mapped\+\_\+column(Date\+Time)
+\item 
+\Hypertarget{classapp_1_1models_1_1TileSets_a1ea47e0866c9d47291072fe40fc80778}\label{classapp_1_1models_1_1TileSets_a1ea47e0866c9d47291072fe40fc80778} 
+Mapped {\bfseries source} = mapped\+\_\+column(JSON)
+\item 
+\Hypertarget{classapp_1_1models_1_1TileSets_acaf73373df71ac35e71866d5a89a1f46}\label{classapp_1_1models_1_1TileSets_acaf73373df71ac35e71866d5a89a1f46} 
+Mapped {\bfseries config\+\_\+files} = mapped\+\_\+column(JSON)
+\item 
+\Hypertarget{classapp_1_1models_1_1TileSets_a2bf4c91da68499e3ad6a3e0194140721}\label{classapp_1_1models_1_1TileSets_a2bf4c91da68499e3ad6a3e0194140721} 
+Mapped {\bfseries launch\+\_\+file} = mapped\+\_\+column(String(30))
+\item 
+\Hypertarget{classapp_1_1models_1_1TileSets_a6a589316f7fab823496a0f50736f78ba}\label{classapp_1_1models_1_1TileSets_a6a589316f7fab823496a0f50736f78ba} 
+Mapped {\bfseries sessions} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Sessions}{Sessions}}\textquotesingle{}, secondary=\textquotesingle{}many\+\_\+sessions\+\_\+has\+\_\+many\+\_\+tile\+\_\+sets\textquotesingle{}, back\+\_\+populates=\textquotesingle{}tile\+\_\+sets\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1TileSets_a83327398302ee0707d0436ab0a98af91}\label{classapp_1_1models_1_1TileSets_a83327398302ee0707d0436ab0a98af91} 
+Mapped {\bfseries connections} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Connections}{Connections}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}tile\+\_\+sets\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1TileSets_a4b11d85630d7f6f52078b8fbda6e9a5f}\label{classapp_1_1models_1_1TileSets_a4b11d85630d7f6f52078b8fbda6e9a5f} 
+Mapped {\bfseries tiles} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Tiles}{Tiles}}\textquotesingle{}, secondary=\textquotesingle{}many\+\_\+tiles\+\_\+has\+\_\+many\+\_\+tile\+\_\+sets\textquotesingle{}, back\+\_\+populates=\textquotesingle{}tile\+\_\+sets\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVWeb/\+app/\+models.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,55 @@
+\doxysection{app.\+forms.\+User\+Field Class Reference}
+\hypertarget{classapp_1_1forms_1_1UserField}{}\label{classapp_1_1forms_1_1UserField}\index{app.forms.UserField@{app.forms.UserField}}
+Inheritance diagram for app.\+forms.\+User\+Field:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classapp_1_1forms_1_1UserField}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classapp_1_1forms_1_1UserField_a8447ff17f16337d996f1bac07e4e5d29}\label{classapp_1_1forms_1_1UserField_a8447ff17f16337d996f1bac07e4e5d29} 
+str {\bfseries label} = "{}"{}
+\item 
+\doxymbox{\hyperlink{classapp_1_1forms_1_1UserField_a82f91034533c4a1bef1f5f26fb539414}{username}}
+\item 
+\doxymbox{\hyperlink{classapp_1_1forms_1_1UserField_af29b85517815d176eb9422817c7eba89}{iseditor}}
+\end{DoxyCompactItemize}
+
+
+\label{classapp_1_1forms_1_1UserField_doc-variable-members}
+\Hypertarget{classapp_1_1forms_1_1UserField_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classapp_1_1forms_1_1UserField_af29b85517815d176eb9422817c7eba89}\index{app.forms.UserField@{app.forms.UserField}!iseditor@{iseditor}}
+\index{iseditor@{iseditor}!app.forms.UserField@{app.forms.UserField}}
+\doxysubsubsection{\texorpdfstring{iseditor}{iseditor}}
+{\footnotesize\ttfamily \label{classapp_1_1forms_1_1UserField_af29b85517815d176eb9422817c7eba89} 
+app.\+forms.\+User\+Field.\+iseditor\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ BooleanField(\textcolor{stringliteral}{"{}Role\ editor"{}},default=\textcolor{keyword}{False},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ validators=[Optional()])}
+
+\end{DoxyCode}
+\Hypertarget{classapp_1_1forms_1_1UserField_a82f91034533c4a1bef1f5f26fb539414}\index{app.forms.UserField@{app.forms.UserField}!username@{username}}
+\index{username@{username}!app.forms.UserField@{app.forms.UserField}}
+\doxysubsubsection{\texorpdfstring{username}{username}}
+{\footnotesize\ttfamily \label{classapp_1_1forms_1_1UserField_a82f91034533c4a1bef1f5f26fb539414} 
+app.\+forms.\+User\+Field.\+username\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ StringField(\textcolor{stringliteral}{'Username'},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ validators=[Optional(),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Length(min=6,max=16,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ message=(\textcolor{stringliteral}{'not\ too\ short\ (<6),\ not\ too\ long\ (>16)...'}))}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ])}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVWeb/\+app/\+forms.\+py\end{DoxyCompactItemize}

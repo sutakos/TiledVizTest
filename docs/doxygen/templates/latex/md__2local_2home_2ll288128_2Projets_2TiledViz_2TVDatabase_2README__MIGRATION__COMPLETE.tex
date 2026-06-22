@@ -1,0 +1,496 @@
+\chapter{Tiled\+Viz Database Migration Guide }
+\hypertarget{md__2local_2home_2ll288128_2Projets_2TiledViz_2TVDatabase_2README__MIGRATION__COMPLETE}{}\label{md__2local_2home_2ll288128_2Projets_2TiledViz_2TVDatabase_2README__MIGRATION__COMPLETE}\index{TiledViz Database Migration Guide@{TiledViz Database Migration Guide}}
+\label{md__2local_2home_2ll288128_2Projets_2TiledViz_2TVDatabase_2README__MIGRATION__COMPLETE_autotoc_md17}%
+\Hypertarget{md__2local_2home_2ll288128_2Projets_2TiledViz_2TVDatabase_2README__MIGRATION__COMPLETE_autotoc_md17}%
+
+
+\doxysection*{Master → Member-\/\+Management1 System}
+
+\doxysubsection*{Overview}
+
+This document explains the complete migration process from the old Tiled\+Viz system (Master branch) to the new member-\/management system (Member-\/\+Management1 branch). The migration adds comprehensive project member management with role-\/based access control.
+
+\DoxyHorRuler{0}
+
+
+\doxysection*{Migration Objectives}
+
+\doxysubsection*{What the Migration Does:\+}
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Adds {\ttfamily role\+\_\+type} column}} to the {\ttfamily projects} table
+\item {\bfseries{Creates {\ttfamily project\+\_\+members} table}} for detailed member management
+\item {\bfseries{Assigns project owners}} to all existing projects
+\item {\bfseries{Handles orphaned projects}} by assigning them to a system admin
+\item {\bfseries{Creates management views}} for easy project oversight
+\item {\bfseries{Adds performance indexes}} for optimal query performance
+\item {\bfseries{Sets up automatic triggers}} for new project creation
+\end{DoxyEnumerate}
+
+\doxysubsection*{Key Features Added:\+}
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Role-\/based access control}}:\+ {\ttfamily owner}, {\ttfamily admin}, {\ttfamily editor}, {\ttfamily viewer}, {\ttfamily guest}
+\item {\bfseries{Project ownership tracking}}:\+ Clear ownership history and status
+\item {\bfseries{Member management views}}:\+ Easy-\/to-\/use views for project administration
+\item {\bfseries{Automatic assignment}}:\+ Triggers ensure new projects get proper owners
+\item {\bfseries{Performance optimization}}:\+ Indexes for fast member lookups
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+\doxysection*{Files Involved}
+
+\doxysubsection*{Source Files:\+}
+
+
+\begin{DoxyItemize}
+\item {\ttfamily Tiled\+Viz\+\_\+master.\+sql} -\/ Old database schema (Master branch)
+\item {\ttfamily Tiled\+Viz.\+sql} -\/ New database schema (Member-\/\+Management1 branch)
+\item {\ttfamily complete\+\_\+migration\+\_\+script.\+sql} -\/ {\bfseries{Main migration script}}
+\item {\ttfamily README\+\_\+\+MIGRATION\+\_\+\+COMPLETE.\+md} -\/ This documentation
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+\doxysection*{Migration Process}
+
+\doxysubsection*{Step 1:\+ Schema Migration}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Adds\ role\_type\ column\ to\ projects\ table}}
+\DoxyCodeLine{\textcolor{keyword}{ALTER}\ \textcolor{keyword}{TABLE}\ projects\ \textcolor{keyword}{ADD}\ \textcolor{keyword}{COLUMN}\ role\_type\ \textcolor{keywordtype}{character}\ \textcolor{keyword}{varying}(\textcolor{stringliteral}{20})\ \textcolor{keyword}{NOT}\ \textcolor{stringliteral}{NULL}\ \textcolor{keyword}{DEFAULT}\ \textcolor{stringliteral}{'owner'};}
+
+\end{DoxyCode}
+
+
+\doxysubsection*{Step 2:\+ New Tables Creation}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Creates\ project\_members\ table\ with\ full\ structure}}
+\DoxyCodeLine{\textcolor{keyword}{CREATE}\ \textcolor{keyword}{TABLE}\ project\_members\ (}
+\DoxyCodeLine{\ \ \ \ project\_id\ \textcolor{keywordtype}{integer}\ \textcolor{keyword}{NOT}\ \textcolor{stringliteral}{NULL},}
+\DoxyCodeLine{\ \ \ \ user\_id\ \textcolor{keywordtype}{integer}\ \textcolor{keyword}{NOT}\ \textcolor{stringliteral}{NULL},}
+\DoxyCodeLine{\ \ \ \ role\_type\ \textcolor{keywordtype}{character}\ \textcolor{keyword}{varying}(\textcolor{stringliteral}{20})\ \textcolor{keyword}{NOT}\ \textcolor{stringliteral}{NULL}\ \textcolor{keyword}{DEFAULT}\ \textcolor{stringliteral}{'viewer'},}
+\DoxyCodeLine{\ \ \ \ joined\_at\ \textcolor{keywordtype}{timestamp}\ \textcolor{keyword}{DEFAULT}\ \textcolor{keyword}{CURRENT\_TIMESTAMP},}
+\DoxyCodeLine{\ \ \ \ id\_users\ \textcolor{keywordtype}{integer},}
+\DoxyCodeLine{\ \ \ \ id\_projects\ \textcolor{keywordtype}{integer},}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{-\/-\/\ ...\ constraints\ and\ indexes}}
+\DoxyCodeLine{);}
+
+\end{DoxyCode}
+
+
+\doxysubsection*{Step 3:\+ Views Creation}
+
+
+\begin{DoxyItemize}
+\item {\ttfamily project\+\_\+members\+\_\+detailed} -\/ Complete member information with role priorities
+\item {\ttfamily project\+\_\+owners\+\_\+detailed} -\/ Project ownership details with status
+\item {\ttfamily project\+\_\+owners\+\_\+summary} -\/ Simplified ownership overview
+\end{DoxyItemize}
+
+\doxysubsection*{Step 4:\+ Data Migration}
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Existing owners}}:\+ Projects with {\ttfamily id\+\_\+users} become {\ttfamily owner} in {\ttfamily project\+\_\+members}
+\item {\bfseries{Orphaned projects}}:\+ Assigned to {\ttfamily system\+\_\+admin} user
+\item {\bfseries{Session participants}}:\+ Added as {\ttfamily viewer} role
+\item {\bfseries{Connection owners}}:\+ Added as {\ttfamily editor} role
+\end{DoxyItemize}
+
+\doxysubsection*{Step 5:\+ Performance Optimization}
+
+
+\begin{DoxyItemize}
+\item {\bfseries{5 specialized indexes}} for fast queries
+\item {\bfseries{Foreign key constraints}} for data integrity
+\item {\bfseries{Unique constraints}} ensuring one owner per project
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+\doxysection*{Testing Process}
+
+\doxysubsection*{Prerequisites}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Ensure\ PostgreSQL\ is\ running}
+\DoxyCodeLine{sudo\ systemctl\ status\ postgresql}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Ensure\ tiledviz\ user\ exists}
+\DoxyCodeLine{sudo\ -\/u\ postgres\ psql\ -\/c\ "{}\(\backslash\)du"{}\ |\ grep\ tiledviz}
+
+\end{DoxyCode}
+
+
+\doxysection*{Testing Process}
+
+\doxysubsection*{1. Prepare Test Environment}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Create\ test\ database}
+\DoxyCodeLine{sudo\ -\/u\ postgres\ psql\ -\/c\ "{}CREATE\ DATABASE\ tiledviz\_test;"{}}
+\DoxyCodeLine{sudo\ -\/u\ postgres\ psql\ -\/c\ "{}GRANT\ ALL\ PRIVILEGES\ ON\ DATABASE\ tiledviz\_test\ TO\ tiledviz;"{}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Load\ old\ schema}
+\DoxyCodeLine{sudo\ -\/u\ postgres\ psql\ -\/d\ tiledviz\_test\ -\/f\ /tmp/TiledViz\_master.sql}
+
+\end{DoxyCode}
+
+
+\doxysubsection*{2. Insert Test Data}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Connect\ to\ test\ database}}
+\DoxyCodeLine{sudo\ -\/u\ postgres\ psql\ -\/d\ tiledviz\_test}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Insert\ test\ users}}
+\DoxyCodeLine{\textcolor{keyword}{INSERT}\ \textcolor{keyword}{INTO}\ users\ (name,\ creation\_date,\ mail,\ salt,\ password,\ is\_admin)\ \textcolor{keyword}{VALUES}\ }
+\DoxyCodeLine{(\textcolor{stringliteral}{'admin\_user'},\ NOW(),\ \textcolor{stringliteral}{'admin@test.com'},\ \textcolor{stringliteral}{'salt123'},\ \textcolor{stringliteral}{'password123'},\ \textcolor{stringliteral}{true}),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'user1'},\ NOW(),\ \textcolor{stringliteral}{'user1@test.com'},\ \textcolor{stringliteral}{'salt456'},\ \textcolor{stringliteral}{'password456'},\ \textcolor{stringliteral}{false}),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'user2'},\ NOW(),\ \textcolor{stringliteral}{'user2@test.com'},\ \textcolor{stringliteral}{'salt789'},\ \textcolor{stringliteral}{'password789'},\ \textcolor{stringliteral}{false}),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'user3'},\ NOW(),\ \textcolor{stringliteral}{'user3@test.com'},\ \textcolor{stringliteral}{'salt000'},\ \textcolor{stringliteral}{'password000'},\ \textcolor{stringliteral}{false});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Insert\ test\ projects\ (mix\ of\ owned\ and\ orphaned)}}
+\DoxyCodeLine{\textcolor{keyword}{INSERT}\ \textcolor{keyword}{INTO}\ projects\ (name,\ creation\_date,\ description,\ id\_users)\ \textcolor{keyword}{VALUES}\ }
+\DoxyCodeLine{(\textcolor{stringliteral}{'Projet\ A'},\ NOW(),\ \textcolor{stringliteral}{'Description\ du\ projet\ A'},\ \textcolor{stringliteral}{1}),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'Projet\ B'},\ NOW(),\ \textcolor{stringliteral}{'Description\ du\ projet\ B'},\ \textcolor{stringliteral}{2}),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'Projet\ C'},\ NOW(),\ \textcolor{stringliteral}{'Description\ du\ projet\ C'},\ \textcolor{stringliteral}{3}),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'Projet\ Orphelin\ 1'},\ NOW(),\ \textcolor{stringliteral}{'Projet\ sans\ propriétaire\ 1'},\ \textcolor{stringliteral}{NULL}),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'Projet\ Orphelin\ 2'},\ NOW(),\ \textcolor{stringliteral}{'Projet\ sans\ propriétaire\ 2'},\ \textcolor{stringliteral}{NULL});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Insert\ test\ sessions}}
+\DoxyCodeLine{\textcolor{keyword}{INSERT}\ \textcolor{keyword}{INTO}\ sessions\ (name,\ id\_projects,\ creation\_date,\ description)\ \textcolor{keyword}{VALUES}\ }
+\DoxyCodeLine{(\textcolor{stringliteral}{'Session\ 1'},\ \textcolor{stringliteral}{1},\ NOW(),\ \textcolor{stringliteral}{'Session\ du\ projet\ A'}),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'Session\ 2'},\ \textcolor{stringliteral}{2},\ NOW(),\ \textcolor{stringliteral}{'Session\ du\ projet\ B'}),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'Session\ 3'},\ \textcolor{stringliteral}{3},\ NOW(),\ \textcolor{stringliteral}{'Session\ du\ projet\ C'}),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'Session\ 4'},\ \textcolor{stringliteral}{4},\ NOW(),\ \textcolor{stringliteral}{'Session\ du\ projet\ orphelin\ 1'}),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'Session\ 5'},\ \textcolor{stringliteral}{5},\ NOW(),\ \textcolor{stringliteral}{'Session\ du\ projet\ orphelin\ 2'});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Insert\ test\ connections}}
+\DoxyCodeLine{\textcolor{keyword}{INSERT}\ \textcolor{keyword}{INTO}\ connections\ (creation\_date,\ host\_address,\ auth\_type,\ id\_users)\ \textcolor{keyword}{VALUES}\ }
+\DoxyCodeLine{(NOW(),\ \textcolor{stringliteral}{'192.168.1.1'},\ \textcolor{stringliteral}{'ssh'},\ \textcolor{stringliteral}{1}),}
+\DoxyCodeLine{(NOW(),\ \textcolor{stringliteral}{'192.168.1.2'},\ \textcolor{stringliteral}{'ssh'},\ \textcolor{stringliteral}{2}),}
+\DoxyCodeLine{(NOW(),\ \textcolor{stringliteral}{'192.168.1.3'},\ \textcolor{stringliteral}{'ssh'},\ \textcolor{stringliteral}{3});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Insert\ test\ tile\_sets}}
+\DoxyCodeLine{\textcolor{keyword}{INSERT}\ \textcolor{keyword}{INTO}\ tile\_sets\ (name,\ type\_of\_tiles,\ id\_connections,\ creation\_date)\ \textcolor{keyword}{VALUES}\ }
+\DoxyCodeLine{(\textcolor{stringliteral}{'TileSet\ 1'},\ \textcolor{stringliteral}{'web\_png'},\ \textcolor{stringliteral}{1},\ NOW()),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'TileSet\ 2'},\ \textcolor{stringliteral}{'local\_image'},\ \textcolor{stringliteral}{2},\ NOW()),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'TileSet\ 3'},\ \textcolor{stringliteral}{'remote\_db'},\ \textcolor{stringliteral}{3},\ NOW());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Insert\ test\ tiles}}
+\DoxyCodeLine{\textcolor{keyword}{INSERT}\ \textcolor{keyword}{INTO}\ tiles\ (title,\ pos\_px\_x,\ pos\_px\_y,\ source,\ id\_connections,\ creation\_date)\ \textcolor{keyword}{VALUES}\ }
+\DoxyCodeLine{(\textcolor{stringliteral}{'Tile\ 1'},\ \textcolor{stringliteral}{100},\ \textcolor{stringliteral}{200},\ \textcolor{stringliteral}{'\{"{}url"{}:\ "{}http://example.com/tile1.png"{}\}'},\ \textcolor{stringliteral}{1},\ NOW()),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'Tile\ 2'},\ \textcolor{stringliteral}{300},\ \textcolor{stringliteral}{400},\ \textcolor{stringliteral}{'\{"{}path"{}:\ "{}/data/tile2.png"{}\}'},\ \textcolor{stringliteral}{2},\ NOW()),}
+\DoxyCodeLine{(\textcolor{stringliteral}{'Tile\ 3'},\ \textcolor{stringliteral}{500},\ \textcolor{stringliteral}{600},\ \textcolor{stringliteral}{'\{"{}db"{}:\ "{}remote\_db\_1"{}\}'},\ \textcolor{stringliteral}{3},\ NOW());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Insert\ many-\/to-\/many\ relationships}}
+\DoxyCodeLine{\textcolor{keyword}{INSERT}\ \textcolor{keyword}{INTO}\ many\_users\_has\_many\_sessions\ (id\_users,\ id\_sessions)\ \textcolor{keyword}{VALUES}\ }
+\DoxyCodeLine{(\textcolor{stringliteral}{1},\ \textcolor{stringliteral}{1}),\ (\textcolor{stringliteral}{2},\ \textcolor{stringliteral}{2}),\ (\textcolor{stringliteral}{3},\ \textcolor{stringliteral}{3}),\ (\textcolor{stringliteral}{1},\ \textcolor{stringliteral}{4}),\ (\textcolor{stringliteral}{2},\ \textcolor{stringliteral}{5});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{INSERT}\ \textcolor{keyword}{INTO}\ many\_sessions\_has\_many\_tile\_sets\ (id\_sessions,\ id\_tile\_sets)\ \textcolor{keyword}{VALUES}\ }
+\DoxyCodeLine{(\textcolor{stringliteral}{1},\ \textcolor{stringliteral}{1}),\ (\textcolor{stringliteral}{2},\ \textcolor{stringliteral}{2}),\ (\textcolor{stringliteral}{3},\ \textcolor{stringliteral}{3});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{INSERT}\ \textcolor{keyword}{INTO}\ many\_tiles\_has\_many\_tile\_sets\ (id\_tiles,\ id\_tile\_sets)\ \textcolor{keyword}{VALUES}\ }
+\DoxyCodeLine{(\textcolor{stringliteral}{1},\ \textcolor{stringliteral}{1}),\ (\textcolor{stringliteral}{2},\ \textcolor{stringliteral}{2}),\ (\textcolor{stringliteral}{3},\ \textcolor{stringliteral}{3});}
+
+\end{DoxyCode}
+
+
+\doxysubsection*{3. Execute Migration}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Copy\ migration\ script\ to\ accessible\ location}
+\DoxyCodeLine{sudo\ cp\ TVDatabase/complete\_migration\_script.sql\ /tmp/}
+\DoxyCodeLine{sudo\ chmod\ 644\ /tmp/complete\_migration\_script.sql}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Execute\ migration}
+\DoxyCodeLine{sudo\ -\/u\ postgres\ psql\ -\/d\ tiledviz\_test\ -\/f\ /tmp/complete\_migration\_script.sql}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+
+
+\doxysection*{Migration Validation}
+
+\doxysubsection*{Essential Validation Queries}
+
+\doxysubsubsection*{1. Check Migration Success}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Overall\ migration\ status}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ }
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'Migration\ completed\ successfully!'}\ \textcolor{keyword}{as}\ status,}
+\DoxyCodeLine{\ \ \ \ COUNT(*)\ \textcolor{keyword}{as}\ total\_projects,}
+\DoxyCodeLine{\ \ \ \ COUNT(\textcolor{keywordflow}{CASE}\ \textcolor{keyword}{WHEN}\ u.name\ =\ \textcolor{stringliteral}{'system\_admin'}\ \textcolor{keyword}{THEN}\ \textcolor{stringliteral}{1}\ \textcolor{keywordflow}{END})\ \textcolor{keyword}{as}\ orphaned\_projects,}
+\DoxyCodeLine{\ \ \ \ COUNT(\textcolor{keywordflow}{CASE}\ \textcolor{keyword}{WHEN}\ u.name\ !=\ \textcolor{stringliteral}{'system\_admin'}\ \textcolor{keyword}{THEN}\ \textcolor{stringliteral}{1}\ \textcolor{keywordflow}{END})\ \textcolor{keyword}{as}\ regular\_projects}
+\DoxyCodeLine{\textcolor{keyword}{FROM}\ projects\ p}
+\DoxyCodeLine{\textcolor{keyword}{JOIN}\ users\ u\ \textcolor{keyword}{ON}\ p.id\_users\ =\ u.id;}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection*{2. Verify Project Members Table}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Check\ project\_members\ table\ structure}}
+\DoxyCodeLine{\(\backslash\)d\ project\_members}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Check\ all\ project\ members}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ *\ \textcolor{keyword}{FROM}\ project\_members\ \textcolor{keyword}{ORDER}\ \textcolor{keyword}{BY}\ project\_id,\ role\_type;}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection*{3. Verify No Orphaned Projects}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Should\ return\ 0\ rows}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ *\ \textcolor{keyword}{FROM}\ projects\ \textcolor{keyword}{WHERE}\ id\_users\ \textcolor{keyword}{IS}\ \textcolor{stringliteral}{NULL};}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection*{4. Check Project Ownership}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Detailed\ ownership\ information}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ *\ \textcolor{keyword}{FROM}\ project\_owners\_detailed\ \textcolor{keyword}{ORDER}\ \textcolor{keyword}{BY}\ project\_id;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Summary\ ownership\ information}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ *\ \textcolor{keyword}{FROM}\ project\_owners\_summary\ \textcolor{keyword}{ORDER}\ \textcolor{keyword}{BY}\ project\_name;}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection*{5. Verify Member Roles}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Check\ role\ assignments}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ }
+\DoxyCodeLine{\ \ \ \ p.name\ \textcolor{keyword}{as}\ project\_name,}
+\DoxyCodeLine{\ \ \ \ u.name\ \textcolor{keyword}{as}\ user\_name,}
+\DoxyCodeLine{\ \ \ \ pm.role\_type,}
+\DoxyCodeLine{\ \ \ \ pm.joined\_at}
+\DoxyCodeLine{\textcolor{keyword}{FROM}\ project\_members\ pm}
+\DoxyCodeLine{\textcolor{keyword}{JOIN}\ projects\ p\ \textcolor{keyword}{ON}\ pm.project\_id\ =\ p.id}
+\DoxyCodeLine{\textcolor{keyword}{JOIN}\ users\ u\ \textcolor{keyword}{ON}\ pm.user\_id\ =\ u.id}
+\DoxyCodeLine{\textcolor{keyword}{ORDER}\ \textcolor{keyword}{BY}\ p.name,\ pm.role\_type;}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection*{6. Check Views Functionality}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Test\ project\_members\_detailed\ view}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ *\ \textcolor{keyword}{FROM}\ project\_members\_detailed\ \textcolor{keyword}{ORDER}\ \textcolor{keyword}{BY}\ project\_id,\ role\_priority;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Test\ project\_owners\_detailed\ view}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ *\ \textcolor{keyword}{FROM}\ project\_owners\_detailed\ \textcolor{keyword}{ORDER}\ \textcolor{keyword}{BY}\ ownership\_status\ DESC,\ project\_name;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Test\ project\_owners\_summary\ view}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ *\ \textcolor{keyword}{FROM}\ project\_owners\_summary\ \textcolor{keyword}{ORDER}\ \textcolor{keyword}{BY}\ project\_name;}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection*{7. Verify Indexes}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Check\ indexes\ were\ created}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ indexname,\ tablename,\ indexdef\ }
+\DoxyCodeLine{\textcolor{keyword}{FROM}\ pg\_indexes\ }
+\DoxyCodeLine{\textcolor{keyword}{WHERE}\ tablename\ =\ \textcolor{stringliteral}{'project\_members'}\ }
+\DoxyCodeLine{\textcolor{keyword}{ORDER}\ \textcolor{keyword}{BY}\ indexname;}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection*{8. Verify Constraints}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Check\ foreign\ key\ constraints}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ }
+\DoxyCodeLine{\ \ \ \ tc.constraint\_name,\ }
+\DoxyCodeLine{\ \ \ \ tc.table\_name,\ }
+\DoxyCodeLine{\ \ \ \ kcu.column\_name,\ }
+\DoxyCodeLine{\ \ \ \ ccu.table\_name\ \textcolor{keyword}{AS}\ foreign\_table\_name,}
+\DoxyCodeLine{\ \ \ \ ccu.column\_name\ \textcolor{keyword}{AS}\ foreign\_column\_name\ }
+\DoxyCodeLine{\textcolor{keyword}{FROM}\ information\_schema.table\_constraints\ \textcolor{keyword}{AS}\ tc\ }
+\DoxyCodeLine{\textcolor{keyword}{JOIN}\ information\_schema.key\_column\_usage\ \textcolor{keyword}{AS}\ kcu}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{ON}\ tc.constraint\_name\ =\ kcu.constraint\_name}
+\DoxyCodeLine{\textcolor{keyword}{JOIN}\ information\_schema.constraint\_column\_usage\ \textcolor{keyword}{AS}\ ccu}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{ON}\ ccu.constraint\_name\ =\ tc.constraint\_name}
+\DoxyCodeLine{\textcolor{keyword}{WHERE}\ tc.constraint\_type\ =\ \textcolor{stringliteral}{'FOREIGN\ KEY'}\ }
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{AND}\ tc.table\_name\ =\ \textcolor{stringliteral}{'project\_members'};}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection*{9. Verify Triggers}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Check\ triggers\ are\ active}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ }
+\DoxyCodeLine{\ \ \ \ trigger\_name,\ }
+\DoxyCodeLine{\ \ \ \ event\_manipulation,\ }
+\DoxyCodeLine{\ \ \ \ action\_timing,\ }
+\DoxyCodeLine{\ \ \ \ action\_statement}
+\DoxyCodeLine{\textcolor{keyword}{FROM}\ information\_schema.triggers\ }
+\DoxyCodeLine{\textcolor{keyword}{WHERE}\ event\_object\_table\ =\ \textcolor{stringliteral}{'projects'};}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection*{10. Test New Project Creation}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Test\ trigger\ functionality}}
+\DoxyCodeLine{\textcolor{keyword}{INSERT}\ \textcolor{keyword}{INTO}\ projects\ (name,\ creation\_date,\ description,\ id\_users)\ }
+\DoxyCodeLine{\textcolor{keyword}{VALUES}\ (\textcolor{stringliteral}{'Test\ Project'},\ NOW(),\ \textcolor{stringliteral}{'Testing\ trigger'},\ \textcolor{stringliteral}{1});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Verify\ owner\ was\ automatically\ added}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ *\ \textcolor{keyword}{FROM}\ project\_members\ \textcolor{keyword}{WHERE}\ project\_id\ =\ (\textcolor{keyword}{SELECT}\ id\ \textcolor{keyword}{FROM}\ projects\ \textcolor{keyword}{WHERE}\ name\ =\ \textcolor{stringliteral}{'Test\ Project'});}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+
+
+\doxysection*{Expected Results}
+
+\doxysubsection*{Successful Migration Should Show:\+}
+
+
+\begin{DoxyItemize}
+\item {\bfseries{0 orphaned projects}} (all projects have owners)
+\item {\bfseries{All existing owners}} in {\ttfamily project\+\_\+members} with {\ttfamily owner} role
+\item {\bfseries{Orphaned projects}} assigned to {\ttfamily system\+\_\+admin}
+\item {\bfseries{Session participants}} as {\ttfamily viewer} role
+\item {\bfseries{Connection owners}} as {\ttfamily editor} role
+\item {\bfseries{All views}} working correctly
+\item {\bfseries{All indexes}} created
+\item {\bfseries{All constraints}} active
+\item {\bfseries{Triggers}} functioning
+\end{DoxyItemize}
+
+\doxysubsection*{Sample Expected Output:\+}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ status\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ total\_projects\ |\ orphaned\_projects\ |\ regular\_projects\ }
+\DoxyCodeLine{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}
+\DoxyCodeLine{\ Migration\ completed!\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ 5\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+
+
+\doxysection*{Troubleshooting}
+
+\doxysubsection*{Common Issues:\+}
+
+\doxysubsubsection*{1. Permission Errors}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Solution:\ Ensure\ proper\ permissions}
+\DoxyCodeLine{sudo\ chmod\ 644\ /tmp/complete\_migration\_script.sql}
+\DoxyCodeLine{sudo\ -\/u\ postgres\ psql\ -\/d\ tiledviz\_test\ -\/f\ /tmp/complete\_migration\_script.sql}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection*{2. Constraint Errors}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Check\ for\ existing\ constraints}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ constraint\_name\ \textcolor{keyword}{FROM}\ information\_schema.table\_constraints\ }
+\DoxyCodeLine{\textcolor{keyword}{WHERE}\ table\_name\ =\ \textcolor{stringliteral}{'project\_members'};}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection*{3. View Errors}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Recreate\ views\ if\ needed}}
+\DoxyCodeLine{\(\backslash\)i\ /tmp/complete\_migration\_script.\textcolor{keyword}{sql}}
+
+\end{DoxyCode}
+
+
+\doxysubsubsection*{4. Data Integrity Issues}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Check\ for\ orphaned\ references}}
+\DoxyCodeLine{\textcolor{keyword}{SELECT}\ *\ \textcolor{keyword}{FROM}\ project\_members\ pm\ }
+\DoxyCodeLine{\textcolor{keyword}{LEFT}\ \textcolor{keyword}{JOIN}\ projects\ p\ \textcolor{keyword}{ON}\ pm.project\_id\ =\ p.id\ }
+\DoxyCodeLine{\textcolor{keyword}{WHERE}\ p.id\ \textcolor{keyword}{IS}\ \textcolor{stringliteral}{NULL};}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+
+
+\doxysection*{Rollback Procedure}
+
+If migration needs to be rolled back:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Remove\ new\ elements}}
+\DoxyCodeLine{\textcolor{keyword}{DROP}\ VIEW\ \textcolor{keywordflow}{IF}\ \textcolor{keyword}{EXISTS}\ project\_owners\_summary\ CASCADE;}
+\DoxyCodeLine{\textcolor{keyword}{DROP}\ VIEW\ \textcolor{keywordflow}{IF}\ \textcolor{keyword}{EXISTS}\ project\_owners\_detailed\ CASCADE;}
+\DoxyCodeLine{\textcolor{keyword}{DROP}\ VIEW\ \textcolor{keywordflow}{IF}\ \textcolor{keyword}{EXISTS}\ project\_members\_detailed\ CASCADE;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{DROP}\ \textcolor{keyword}{TRIGGER}\ \textcolor{keywordflow}{IF}\ \textcolor{keyword}{EXISTS}\ trg\_add\_owner\_to\_project\_members\ \textcolor{keyword}{ON}\ projects;}
+\DoxyCodeLine{\textcolor{keyword}{DROP}\ \textcolor{keyword}{FUNCTION}\ \textcolor{keywordflow}{IF}\ \textcolor{keyword}{EXISTS}\ add\_owner\_to\_project\_members();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{DROP}\ \textcolor{keyword}{TABLE}\ \textcolor{keywordflow}{IF}\ \textcolor{keyword}{EXISTS}\ project\_members\ CASCADE;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Remove\ role\_type\ column}}
+\DoxyCodeLine{\textcolor{keyword}{ALTER}\ \textcolor{keyword}{TABLE}\ projects\ \textcolor{keyword}{DROP}\ \textcolor{keyword}{COLUMN}\ \textcolor{keywordflow}{IF}\ \textcolor{keyword}{EXISTS}\ role\_type;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{-\/-\/\ Remove\ system\_admin\ user}}
+\DoxyCodeLine{\textcolor{keyword}{DELETE}\ \textcolor{keyword}{FROM}\ users\ \textcolor{keyword}{WHERE}\ name\ =\ \textcolor{stringliteral}{'system\_admin'};}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+ 

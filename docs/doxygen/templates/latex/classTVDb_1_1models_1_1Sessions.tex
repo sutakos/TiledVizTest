@@ -1,0 +1,52 @@
+\doxysection{TVDb.\+models.\+Sessions Class Reference}
+\hypertarget{classTVDb_1_1models_1_1Sessions}{}\label{classTVDb_1_1models_1_1Sessions}\index{TVDb.models.Sessions@{TVDb.models.Sessions}}
+Inheritance diagram for TVDb.\+models.\+Sessions:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classTVDb_1_1models_1_1Sessions}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Sessions_aacd52e635879912b31cb431663d08e71}\label{classTVDb_1_1models_1_1Sessions_aacd52e635879912b31cb431663d08e71} 
+Mapped {\bfseries id} = mapped\+\_\+column(Integer, primary\+\_\+key=True)
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Sessions_a98c3ca576e751bf260930379d137d4b7}\label{classTVDb_1_1models_1_1Sessions_a98c3ca576e751bf260930379d137d4b7} 
+Mapped {\bfseries name} = mapped\+\_\+column(String(80), nullable=False)
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Sessions_a63a28245c6b0226eb7e65c9886df5cbe}\label{classTVDb_1_1models_1_1Sessions_a63a28245c6b0226eb7e65c9886df5cbe} 
+Mapped {\bfseries id\+\_\+projects} = mapped\+\_\+column(Integer, nullable=False)
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Sessions_a93942cb3dfef88cfe2bbe4372efafc81}\label{classTVDb_1_1models_1_1Sessions_a93942cb3dfef88cfe2bbe4372efafc81} 
+Mapped {\bfseries creation\+\_\+date} = mapped\+\_\+column(Date\+Time)
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Sessions_acc0a53af5765e57572193733fb20361d}\label{classTVDb_1_1models_1_1Sessions_acc0a53af5765e57572193733fb20361d} 
+Mapped {\bfseries description} = mapped\+\_\+column(String(120))
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Sessions_a949b9c38e07a7aa558b9dc76976c13dd}\label{classTVDb_1_1models_1_1Sessions_a949b9c38e07a7aa558b9dc76976c13dd} 
+Mapped {\bfseries Number\+\_\+of\+\_\+active\+\_\+users} = mapped\+\_\+column(Small\+Integer, comment=\textquotesingle{}Number of users actively connected to this sessions\textquotesingle{})
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Sessions_a916e16c477419f241335446a5b0c30b9}\label{classTVDb_1_1models_1_1Sessions_a916e16c477419f241335446a5b0c30b9} 
+Mapped {\bfseries timeout} = mapped\+\_\+column(Integer, comment=\textquotesingle{}Set the timeout (in seconds) after which a session is disactivated (Number\+\_\+of\+\_\+active\+\_\+users is 0) while no socket is still connected.\textquotesingle{})
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Sessions_a36fac82039e8214eeffa5dea920f15d3}\label{classTVDb_1_1models_1_1Sessions_a36fac82039e8214eeffa5dea920f15d3} 
+Mapped {\bfseries config} = mapped\+\_\+column(JSON, comment=\textquotesingle{}configuration of the grid for this session\textquotesingle{})
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Sessions_a70edae3b8cebccf9269ae9e0843a4554}\label{classTVDb_1_1models_1_1Sessions_a70edae3b8cebccf9269ae9e0843a4554} 
+Mapped {\bfseries projects} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classTVDb_1_1models_1_1Projects}{Projects}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}sessions\textquotesingle{})
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Sessions_a33b428208725ab7c575114d2b0252487}\label{classTVDb_1_1models_1_1Sessions_a33b428208725ab7c575114d2b0252487} 
+Mapped {\bfseries tile\+\_\+sets} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classTVDb_1_1models_1_1TileSets}{Tile\+Sets}}\textquotesingle{}, secondary=\textquotesingle{}many\+\_\+sessions\+\_\+has\+\_\+many\+\_\+tile\+\_\+sets\textquotesingle{}, back\+\_\+populates=\textquotesingle{}sessions\textquotesingle{})
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Sessions_ac00234bee423a07af3e05ddcccc330db}\label{classTVDb_1_1models_1_1Sessions_ac00234bee423a07af3e05ddcccc330db} 
+Mapped {\bfseries users} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classTVDb_1_1models_1_1Users}{Users}}\textquotesingle{}, secondary=\textquotesingle{}many\+\_\+users\+\_\+has\+\_\+many\+\_\+sessions\textquotesingle{}, back\+\_\+populates=\textquotesingle{}sessions\textquotesingle{})
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Sessions_a52c173927b3dbe7a1890b78428189fec}\label{classTVDb_1_1models_1_1Sessions_a52c173927b3dbe7a1890b78428189fec} 
+Mapped {\bfseries invite\+\_\+links} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classTVDb_1_1models_1_1InviteLinks}{Invite\+Links}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}sessions\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVDatabase/\+\+TVDb/\+models.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,55 @@
+\doxysection{TVDb.\+models.\+Connections Class Reference}
+\hypertarget{classTVDb_1_1models_1_1Connections}{}\label{classTVDb_1_1models_1_1Connections}\index{TVDb.models.Connections@{TVDb.models.Connections}}
+Inheritance diagram for TVDb.\+models.\+Connections:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classTVDb_1_1models_1_1Connections}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Connections_a22c2198d47155bad170caffeaccc47d4}\label{classTVDb_1_1models_1_1Connections_a22c2198d47155bad170caffeaccc47d4} 
+Mapped {\bfseries id} = mapped\+\_\+column(Integer, primary\+\_\+key=True)
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Connections_af983871342e777af394b88fa3498f423}\label{classTVDb_1_1models_1_1Connections_af983871342e777af394b88fa3498f423} 
+Mapped {\bfseries id\+\_\+users} = mapped\+\_\+column(Integer, nullable=False)
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Connections_acbcb1e040dbab71d631c8edc61588e7b}\label{classTVDb_1_1models_1_1Connections_acbcb1e040dbab71d631c8edc61588e7b} 
+Mapped {\bfseries creation\+\_\+date} = mapped\+\_\+column(Date\+Time)
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Connections_af047ccf15140f8e43d24a387b3c58940}\label{classTVDb_1_1models_1_1Connections_af047ccf15140f8e43d24a387b3c58940} 
+Mapped {\bfseries host\+\_\+address} = mapped\+\_\+column(String(60))
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Connections_a7f644b8fdcb8182a10ddb0afb8f48791}\label{classTVDb_1_1models_1_1Connections_a7f644b8fdcb8182a10ddb0afb8f48791} 
+Mapped {\bfseries auth\+\_\+type} = mapped\+\_\+column(String(10))
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Connections_adc5cfc5bfe3beafac57f4879658f4b1f}\label{classTVDb_1_1models_1_1Connections_adc5cfc5bfe3beafac57f4879658f4b1f} 
+Mapped {\bfseries container} = mapped\+\_\+column(String(100))
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Connections_a0e2b44d7147d7281218adcc2375865f4}\label{classTVDb_1_1models_1_1Connections_a0e2b44d7147d7281218adcc2375865f4} 
+Mapped {\bfseries scheduler} = mapped\+\_\+column(String(15))
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Connections_af4eb8698856aa24f38a6be352868104e}\label{classTVDb_1_1models_1_1Connections_af4eb8698856aa24f38a6be352868104e} 
+Mapped {\bfseries scheduler\+\_\+file} = mapped\+\_\+column(String(30))
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Connections_a6053207a2b73512070548a7b26cb2b7c}\label{classTVDb_1_1models_1_1Connections_a6053207a2b73512070548a7b26cb2b7c} 
+Mapped {\bfseries config\+\_\+files} = mapped\+\_\+column(JSON)
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Connections_a11b8a03e95fa073310dda93c4be3127e}\label{classTVDb_1_1models_1_1Connections_a11b8a03e95fa073310dda93c4be3127e} 
+Mapped {\bfseries connection\+\_\+vnc} = mapped\+\_\+column(Small\+Integer, server\+\_\+default=text(\textquotesingle{}0\textquotesingle{}))
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Connections_ab2c3efce18c9ca4992dd5120e4d8ac34}\label{classTVDb_1_1models_1_1Connections_ab2c3efce18c9ca4992dd5120e4d8ac34} 
+Mapped {\bfseries users} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classTVDb_1_1models_1_1Users}{Users}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}connections\textquotesingle{})
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Connections_ae61ca62adb05ed3882db4bc18f11f34b}\label{classTVDb_1_1models_1_1Connections_ae61ca62adb05ed3882db4bc18f11f34b} 
+Mapped {\bfseries tile\+\_\+sets} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classTVDb_1_1models_1_1TileSets}{Tile\+Sets}}\textquotesingle{}, uselist=False, back\+\_\+populates=\textquotesingle{}connections\textquotesingle{})
+\item 
+\Hypertarget{classTVDb_1_1models_1_1Connections_af9dcaf82f0daf4f2009cd4ec004ccb59}\label{classTVDb_1_1models_1_1Connections_af9dcaf82f0daf4f2009cd4ec004ccb59} 
+Mapped {\bfseries tiles} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classTVDb_1_1models_1_1Tiles}{Tiles}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}connections\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVDatabase/\+\+TVDb/\+models.\+py\end{DoxyCompactItemize}

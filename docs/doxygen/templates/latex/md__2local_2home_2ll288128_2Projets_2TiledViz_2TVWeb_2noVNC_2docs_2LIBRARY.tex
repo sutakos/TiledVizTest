@@ -1,0 +1,29 @@
+\chapter{Using the no\+VNC Java\+Script library }
+\hypertarget{md__2local_2home_2ll288128_2Projets_2TiledViz_2TVWeb_2noVNC_2docs_2LIBRARY}{}\label{md__2local_2home_2ll288128_2Projets_2TiledViz_2TVWeb_2noVNC_2docs_2LIBRARY}\index{Using the noVNC JavaScript library@{Using the noVNC JavaScript library}}
+\label{md__2local_2home_2ll288128_2Projets_2TiledViz_2TVWeb_2noVNC_2docs_2LIBRARY_autotoc_md33}%
+\Hypertarget{md__2local_2home_2ll288128_2Projets_2TiledViz_2TVWeb_2noVNC_2docs_2LIBRARY_autotoc_md33}%
+
+
+This document describes how to make use of the no\+VNC Java\+Script library for integration in your own VNC client application. If you wish to embed the more complete no\+VNC application with its included user interface then please see our \doxysectlink{md__2local_2home_2ll288128_2Projets_2TiledViz_2TVWeb_2noVNC_2docs_2EMBEDDING}{embedding documentation}{0}.
+
+\doxysection*{API}
+
+The API of no\+VNC consists of a single object called {\ttfamily \doxylink{classRFB}{RFB}}. The formal documentation for that object can be found in our \doxysectlink{md__2local_2home_2ll288128_2Projets_2TiledViz_2TVWeb_2noVNC_2docs_2API}{API documentation}{0}.
+
+\doxysection*{Example}
+
+no\+VNC includes a small example application called {\ttfamily vnc\+\_\+lite.\+html}. This does not make use of all the features of no\+VNC, but is a good start to see how to do things.
+
+\doxysection*{Conversion of modules}
+
+no\+VNC is written using ECMAScript 6 modules. This is not supported by older versions of Node.\+js. To use no\+VNC with those older versions of Node.\+js the library must first be converted.
+
+Fortunately no\+VNC includes a script to handle this conversion. Please follow the following steps:\+
+
+
+\begin{DoxyEnumerate}
+\item Install Node.\+js
+\item Run {\ttfamily npm install} in the no\+VNC directory
+\end{DoxyEnumerate}
+
+The result of the conversion is available in the {\ttfamily lib/\+} directory. 

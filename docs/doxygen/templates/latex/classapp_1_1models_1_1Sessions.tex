@@ -1,0 +1,52 @@
+\doxysection{app.\+models.\+Sessions Class Reference}
+\hypertarget{classapp_1_1models_1_1Sessions}{}\label{classapp_1_1models_1_1Sessions}\index{app.models.Sessions@{app.models.Sessions}}
+Inheritance diagram for app.\+models.\+Sessions:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classapp_1_1models_1_1Sessions}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classapp_1_1models_1_1Sessions_a0550700ae6688545df11aef507ec1742}\label{classapp_1_1models_1_1Sessions_a0550700ae6688545df11aef507ec1742} 
+Mapped {\bfseries id} = mapped\+\_\+column(Integer, primary\+\_\+key=True)
+\item 
+\Hypertarget{classapp_1_1models_1_1Sessions_ad9b6e28c54ac9eb8fe383a2d6f88b1eb}\label{classapp_1_1models_1_1Sessions_ad9b6e28c54ac9eb8fe383a2d6f88b1eb} 
+Mapped {\bfseries name} = mapped\+\_\+column(String(80), nullable=False)
+\item 
+\Hypertarget{classapp_1_1models_1_1Sessions_af126f45f30810bcf0dd01cc82827f002}\label{classapp_1_1models_1_1Sessions_af126f45f30810bcf0dd01cc82827f002} 
+Mapped {\bfseries id\+\_\+projects} = mapped\+\_\+column(Integer, nullable=False)
+\item 
+\Hypertarget{classapp_1_1models_1_1Sessions_a25911efc01b7564db2c72df31ac44f6f}\label{classapp_1_1models_1_1Sessions_a25911efc01b7564db2c72df31ac44f6f} 
+Mapped {\bfseries creation\+\_\+date} = mapped\+\_\+column(Date\+Time)
+\item 
+\Hypertarget{classapp_1_1models_1_1Sessions_a2f47c2b2994bf430dd959d8296bd6cf8}\label{classapp_1_1models_1_1Sessions_a2f47c2b2994bf430dd959d8296bd6cf8} 
+Mapped {\bfseries description} = mapped\+\_\+column(String(120))
+\item 
+\Hypertarget{classapp_1_1models_1_1Sessions_a9ed84d69209b0ef51c14dc5b56e71321}\label{classapp_1_1models_1_1Sessions_a9ed84d69209b0ef51c14dc5b56e71321} 
+Mapped {\bfseries Number\+\_\+of\+\_\+active\+\_\+users} = mapped\+\_\+column(Small\+Integer, comment=\textquotesingle{}Number of users actively connected to this sessions\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Sessions_a0f11ff229dcf21f4dd606bc4dbf7fd36}\label{classapp_1_1models_1_1Sessions_a0f11ff229dcf21f4dd606bc4dbf7fd36} 
+Mapped {\bfseries timeout} = mapped\+\_\+column(Integer, comment=\textquotesingle{}Set the timeout (in seconds) after which a session is disactivated (Number\+\_\+of\+\_\+active\+\_\+users is 0) while no socket is still connected.\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Sessions_a99d2968a53e2c469e69f6d59f9ced209}\label{classapp_1_1models_1_1Sessions_a99d2968a53e2c469e69f6d59f9ced209} 
+Mapped {\bfseries config} = mapped\+\_\+column(JSON, comment=\textquotesingle{}configuration of the grid for this session\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Sessions_abf937026d335bd3ca61b7058bdbef83c}\label{classapp_1_1models_1_1Sessions_abf937026d335bd3ca61b7058bdbef83c} 
+Mapped {\bfseries projects} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Projects}{Projects}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}sessions\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Sessions_a4a8923c28df755348ee6356ef7489eef}\label{classapp_1_1models_1_1Sessions_a4a8923c28df755348ee6356ef7489eef} 
+Mapped {\bfseries tile\+\_\+sets} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1TileSets}{Tile\+Sets}}\textquotesingle{}, secondary=\textquotesingle{}many\+\_\+sessions\+\_\+has\+\_\+many\+\_\+tile\+\_\+sets\textquotesingle{}, back\+\_\+populates=\textquotesingle{}sessions\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Sessions_a609b9c85a19e7ef4c1d9b10deadfab91}\label{classapp_1_1models_1_1Sessions_a609b9c85a19e7ef4c1d9b10deadfab91} 
+Mapped {\bfseries users} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Users}{Users}}\textquotesingle{}, secondary=\textquotesingle{}many\+\_\+users\+\_\+has\+\_\+many\+\_\+sessions\textquotesingle{}, back\+\_\+populates=\textquotesingle{}sessions\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Sessions_a84e03fb63f760cc0e2665bf57b651ce9}\label{classapp_1_1models_1_1Sessions_a84e03fb63f760cc0e2665bf57b651ce9} 
+Mapped {\bfseries invite\+\_\+links} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1InviteLinks}{Invite\+Links}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}sessions\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVWeb/\+app/\+models.\+py\end{DoxyCompactItemize}

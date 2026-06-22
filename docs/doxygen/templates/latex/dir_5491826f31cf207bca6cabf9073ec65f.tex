@@ -1,0 +1,56 @@
+\doxysection{/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVWeb Directory Reference}
+\hypertarget{dir_5491826f31cf207bca6cabf9073ec65f}{}\label{dir_5491826f31cf207bca6cabf9073ec65f}\index{/local/home/ll288128/Projets/TiledViz/TVWeb Directory Reference@{/local/home/ll288128/Projets/TiledViz/TVWeb Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \doxymbox{\hyperlink{dir_a739c00aa583451cec2c37ff1fd04905}{app}}
+\item 
+directory \doxymbox{\hyperlink{dir_5a0fce41e69db1f05b05b0fd97c74479}{Flask\+Docker}}
+\item 
+directory \doxymbox{\hyperlink{dir_5450aafba03b8c21ac40cc22eb78dba3}{no\+VNC}}
+\item 
+directory \doxymbox{\hyperlink{dir_c392e3aa183ae7a6a38792e80a996246}{Selenium}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+TVWeb is the web interface for Tiled\+Wiz.\hypertarget{dir_5491826f31cf207bca6cabf9073ec65f_autotoc_md34}{}\doxysubsection{\texorpdfstring{Structure}{Structure}}\label{dir_5491826f31cf207bca6cabf9073ec65f_autotoc_md34}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{app/}
+\DoxyCodeLine{\ \ \ \ static/}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ dist/\ \#\ Bootstrap,\ jQuery,\ other\ frameworks\ files\ (css,\ js)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ css/}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ js/}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ webfonts/\ \#\ To\ use\ with\ fontawesome\ (css\ in\ ../css)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ css/\ \#\ My\ CSS\ files}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ js/\ \#\ My\ JS\ files}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ images/}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ icons/}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ favicon.ico\ \#\ To\ be\ displayed}
+\DoxyCodeLine{\ \ \ \ templates/}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ base.html\ \#\ Imports\ (js/css)\ +\ block\ "{}additional\ scripts"{}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ base\_simple.html\ \#\ Classic\ page}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ base\_forms.html\ \#\ Page\ suited\ for\ forms\ templates}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ base\_grid.html\ \#\ Page\ with\ menu\ on\ the\ left,\ legend\ space\ at\ the\ top,\ grid\ space\ in\ the\ middle}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ main.html\ \#\ Filling}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ grid.html\ \#\ Filling}
+\DoxyCodeLine{\ \ \ \ \_\_init\_\_.py\ \#\ SocketIO(app,\ host)\ is\ *here*}
+\DoxyCodeLine{\ \ \ \ forms.py\ \#\ Implementation\ of\ various\ forms\ to\ be\ later\ embedded\ (as\ imports)}
+\DoxyCodeLine{\ \ \ \ routes.py\ \#\ Routes,\ template\ rendering,\ event\ processing\ (socketio)}
+\DoxyCodeLine{\ \ \ \ models.py\ \#\ Data\ models\ (ie\ database\ content\ management)}
+\DoxyCodeLine{tvweb.py\ \#\ Only\ imports\ app\ (no\ code\ here),\ main\ file\ in\ regard\ to\ variable\ definition:\ export\ FLASK\_APP=tvweb.py}
+\DoxyCodeLine{config.py\ \#\ Non-\/critical\ parameters\ (critical\ ones\ should\ never\ be\ written\ in\ this\ repo)}
+\DoxyCodeLine{requirements.txt\ \#\ Packages\ listed\ to\ be\ installed\ through\ pip\ on\ the\ web\ server}
+
+\end{DoxyCode}
+\hypertarget{dir_5491826f31cf207bca6cabf9073ec65f_autotoc_md35}{}\doxysubsection{\texorpdfstring{Conventions}{Conventions}}\label{dir_5491826f31cf207bca6cabf9073ec65f_autotoc_md35}
+\doxysubsubsection*{Naming}
+
+Socket.\+io communications:\+
+\begin{DoxyItemize}
+\item Server-\/side:\+ data received from the client will be named {\ttfamily cdata}, data sent to the client will be named {\ttfamily sdata}
+\item Client-\/side:\+ data received from the server will be named {\ttfamily sdata}, data sent to the server will be named {\ttfamily cdata}
+\end{DoxyItemize}\hypertarget{dir_5491826f31cf207bca6cabf9073ec65f_autotoc_md36}{}\doxysubsection{\texorpdfstring{Logging}{Logging}}\label{dir_5491826f31cf207bca6cabf9073ec65f_autotoc_md36}
+A FIFO is created in Flaskdock to modify Tiled\+Viz.\+log output level for clicks in web clients :\+ LOGLEV=WARNING by default. To change that, connect to the container as flaskusr and give new level (ERROR, WARNING, INFO, DEBUG) \begin{quote}
+echo INFO \texorpdfstring{$>$}{>} /\+tmp/\+logfifo \end{quote}

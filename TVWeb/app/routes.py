@@ -5283,34 +5283,30 @@ def handle_join_with_invite_link(link):
 
 # ====================================================================
 # Error management
-@app.route('/400')
-def bad_request():
-    flash("Your cookie has expired. Please go back and update page.")
+@app.errorhandler(400)
+def bad_request(e):
     logging.error("Bad request or cookie expired for user "+str(session["username"]))
-    return redirect(url_for(".index"))
+    return render_template('error_pages/400.html'), 400
 
-@app.route('/502')
-def bad_req():
-    flash("Your cookie has expired. Please go back and update page.")
+@app.errorhandler(502)
+def bad_req(e):
     logging.error("Cookie expired for user "+str(session["username"]))
-    return redirect(url_for(".index"))
+    return render_template('error_pages/502.html'), 502
 
-@app.route('/504')
-def bad_connect():
-    flash("An error has occured with TiledViz. We are really sorry about this.\n Your connection has never reached the connection machine. Please try again with a new connection.")
+@app.errorhandler(504)
+def bad_connect(e):
     logging.error("Error of TVSecure for user "+str(session["username"]))
-    return redirect(url_for(".index"))
+    return render_template('error_pages/504.html'), 504
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error_pages/404.html'), 404
 
-@app.route('/404')
-def not_found():
-    return "Unknown page. Please modify your address."
-
-@app.route('/500')
-def TVerror():
-    flash("An error has occured with TiledViz. We are really sorry about this.\n Please try to keep your history of actions and send them to TiledViz developpers.")
+@app.errorhandler(500)
+def TVerror(e):
     logging.error("Error with TiledViz for user "+str(session["username"]))
-    return redirect(url_for(".index"))
+    return render_template('error_pages/500.html'), 500
+
 
 # # Proxy VNC
 # # Thank's to https://stackoverflow.com/posts/36601467/revisions

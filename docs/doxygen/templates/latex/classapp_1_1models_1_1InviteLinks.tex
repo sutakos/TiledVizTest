@@ -1,0 +1,67 @@
+\doxysection{app.\+models.\+Invite\+Links Class Reference}
+\hypertarget{classapp_1_1models_1_1InviteLinks}{}\label{classapp_1_1models_1_1InviteLinks}\index{app.models.InviteLinks@{app.models.InviteLinks}}
+Inheritance diagram for app.\+models.\+Invite\+Links:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classapp_1_1models_1_1InviteLinks}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_a7873d7f1d9b8bf92f751506f5ee05d7c}\label{classapp_1_1models_1_1InviteLinks_a7873d7f1d9b8bf92f751506f5ee05d7c} 
+Mapped {\bfseries id} = mapped\+\_\+column(Integer, primary\+\_\+key=True)
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_ad2ddb1b2cbc67ff13373864732588641}\label{classapp_1_1models_1_1InviteLinks_ad2ddb1b2cbc67ff13373864732588641} 
+Mapped {\bfseries link} = mapped\+\_\+column(String(200), nullable=False)
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_a389edce1276584af8248a09c2642dd7b}\label{classapp_1_1models_1_1InviteLinks_a389edce1276584af8248a09c2642dd7b} 
+Mapped {\bfseries host\+\_\+user} = mapped\+\_\+column(String(80), nullable=False)
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_a260b9e8df40619b54d8cb8781413364b}\label{classapp_1_1models_1_1InviteLinks_a260b9e8df40619b54d8cb8781413364b} 
+Mapped {\bfseries host\+\_\+project} = mapped\+\_\+column(String(80), nullable=False)
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_af19893f530adc50921f82c0fafa29d66}\label{classapp_1_1models_1_1InviteLinks_af19893f530adc50921f82c0fafa29d66} 
+Mapped {\bfseries type} = mapped\+\_\+column(Boolean)
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_aa8922ce390e3d0e664a854964103fef3}\label{classapp_1_1models_1_1InviteLinks_aa8922ce390e3d0e664a854964103fef3} 
+Mapped {\bfseries creation\+\_\+date} = mapped\+\_\+column(Date\+Time)
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_a29a8af54b5101f5ebcb487de5d3ae3fa}\label{classapp_1_1models_1_1InviteLinks_a29a8af54b5101f5ebcb487de5d3ae3fa} 
+Mapped {\bfseries expiration\+\_\+date} = mapped\+\_\+column(Date\+Time, comment=\textquotesingle{}Date after which the invite link expires\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_acfec4b69a1c94222e840ab86ff1ae44b}\label{classapp_1_1models_1_1InviteLinks_acfec4b69a1c94222e840ab86ff1ae44b} 
+Mapped {\bfseries is\+\_\+revoked} = mapped\+\_\+column(Boolean, server\+\_\+default=text(\textquotesingle{}false\textquotesingle{}), comment=\textquotesingle{}Whether the invite link has been revoked\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_a69243cd0b9fa95bd8109887957ba915a}\label{classapp_1_1models_1_1InviteLinks_a69243cd0b9fa95bd8109887957ba915a} 
+Mapped {\bfseries message} = mapped\+\_\+column(String(500), comment=\textquotesingle{}Custom message to be sent with the invitation\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_ad34ac4495a95c334ddd5c5c09f6d9f99}\label{classapp_1_1models_1_1InviteLinks_ad34ac4495a95c334ddd5c5c09f6d9f99} 
+Mapped {\bfseries target\+\_\+email} = mapped\+\_\+column(String(80), comment=\textquotesingle{}Email address of the invited user\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_a9be3ff1fb67b7a74f37534dc4df9f0e5}\label{classapp_1_1models_1_1InviteLinks_a9be3ff1fb67b7a74f37534dc4df9f0e5} 
+Mapped {\bfseries group\+\_\+name} = mapped\+\_\+column(String(80), comment=\textquotesingle{}Name of the group if this is a group invitation\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_abbeb95d10ef6e39b1603cd8aa4f143b5}\label{classapp_1_1models_1_1InviteLinks_abbeb95d10ef6e39b1603cd8aa4f143b5} 
+Mapped {\bfseries id\+\_\+sessions} = mapped\+\_\+column(Integer)
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_a5b244d9171221c303e59dd978dc4936f}\label{classapp_1_1models_1_1InviteLinks_a5b244d9171221c303e59dd978dc4936f} 
+Mapped {\bfseries id\+\_\+users} = mapped\+\_\+column(Integer)
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_aff524ce68eb52482ebfda69ff609529a}\label{classapp_1_1models_1_1InviteLinks_aff524ce68eb52482ebfda69ff609529a} 
+Mapped {\bfseries max\+\_\+uses} = mapped\+\_\+column(Integer, server\+\_\+default=text(\textquotesingle{}1\textquotesingle{}), comment=\textquotesingle{}Maximum number of times this invite link can be used\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_a0177af1151b6021cc00f9550cedd354d}\label{classapp_1_1models_1_1InviteLinks_a0177af1151b6021cc00f9550cedd354d} 
+Mapped {\bfseries use\+\_\+count} = mapped\+\_\+column(Integer, server\+\_\+default=text(\textquotesingle{}0\textquotesingle{}), comment=\textquotesingle{}Number of times this invite link has been used\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_a35c9097ca87028414c5fdbe7d6da6422}\label{classapp_1_1models_1_1InviteLinks_a35c9097ca87028414c5fdbe7d6da6422} 
+Mapped {\bfseries sessions} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Sessions}{Sessions}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}invite\+\_\+links\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1InviteLinks_a4ce3d9e2a6030c6be8e2e8dd2324b8dd}\label{classapp_1_1models_1_1InviteLinks_a4ce3d9e2a6030c6be8e2e8dd2324b8dd} 
+Mapped {\bfseries users} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Users}{Users}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}invite\+\_\+links\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVWeb/\+app/\+models.\+py\end{DoxyCompactItemize}

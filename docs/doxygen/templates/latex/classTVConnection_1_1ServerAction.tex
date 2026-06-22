@@ -1,0 +1,52 @@
+\doxysection{TVConnection.\+Server\+Action Class Reference}
+\hypertarget{classTVConnection_1_1ServerAction}{}\label{classTVConnection_1_1ServerAction}\index{TVConnection.ServerAction@{TVConnection.ServerAction}}
+Inheritance diagram for TVConnection.\+Server\+Action:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classTVConnection_1_1ServerAction}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTVConnection_1_1ServerAction_a584c9e35866ca973c6e19ee802b0b880}\label{classTVConnection_1_1ServerAction_a584c9e35866ca973c6e19ee802b0b880} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, connection\+Id, globals, locals)
+\item 
+\Hypertarget{classTVConnection_1_1ServerAction_adc61d7a60a7e83f71a10113e3e9b9d2c}\label{classTVConnection_1_1ServerAction_adc61d7a60a7e83f71a10113e3e9b9d2c} 
+{\bfseries run} (self, connection\+Id, globals, locals)
+\item 
+\Hypertarget{classTVConnection_1_1ServerAction_aa777398dd1bf54c7430879290041e1e0}\label{classTVConnection_1_1ServerAction_aa777398dd1bf54c7430879290041e1e0} 
+{\bfseries detect} (self)
+\item 
+\Hypertarget{classTVConnection_1_1ServerAction_aecc899bd185b6381c41486221f062c6a}\label{classTVConnection_1_1ServerAction_aecc899bd185b6381c41486221f062c6a} 
+{\bfseries execute} (self, globals, locals)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTVConnection_1_1ServerAction_a028177bdf51696f39cbcc3acaa79cd01}\label{classTVConnection_1_1ServerAction_a028177bdf51696f39cbcc3acaa79cd01} 
+{\bfseries thread} = threading.\+Thread(target=self.\+run,args=(connection\+Id,globals,locals,)).start()
+\item 
+\Hypertarget{classTVConnection_1_1ServerAction_a9948eecc0c2e23461cedb412e38ba481}\label{classTVConnection_1_1ServerAction_a9948eecc0c2e23461cedb412e38ba481} 
+{\bfseries actionserver} = \doxymbox{\hyperlink{classconnect_1_1sock_1_1server}{sock.\+server}}(Action\+Port)
+\item 
+\Hypertarget{classTVConnection_1_1ServerAction_a811cd8fad15e90619d7a97864ab59380}\label{classTVConnection_1_1ServerAction_a811cd8fad15e90619d7a97864ab59380} 
+int {\bfseries iter} = 0
+\item 
+\Hypertarget{classTVConnection_1_1ServerAction_a4fbc767253563920d302bc796b9c2dd8}\label{classTVConnection_1_1ServerAction_a4fbc767253563920d302bc796b9c2dd8} 
+bool {\bfseries Is\+Action\+Connected} = False
+\item 
+\Hypertarget{classTVConnection_1_1ServerAction_a28257094982061e20f0c43e9ae742fe6}\label{classTVConnection_1_1ServerAction_a28257094982061e20f0c43e9ae742fe6} 
+str {\bfseries this\+Action} = "{}action"{}+str(action\+Id)
+\item 
+\Hypertarget{classTVConnection_1_1ServerAction_a2fd749c51511af04ac8475608f8ff141}\label{classTVConnection_1_1ServerAction_a2fd749c51511af04ac8475608f8ff141} 
+bool {\bfseries is\+Selection} = False
+\item 
+\Hypertarget{classTVConnection_1_1ServerAction_a6d889a79916c4835f99a7c3097d7938c}\label{classTVConnection_1_1ServerAction_a6d889a79916c4835f99a7c3097d7938c} 
+{\bfseries this\+Selection} = list(map(int,actiontiles))
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVConnections/\+TVConnection.\+py\end{DoxyCompactItemize}

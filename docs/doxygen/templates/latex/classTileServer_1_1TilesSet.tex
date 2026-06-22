@@ -1,0 +1,91 @@
+\doxysection{Tile\+Server.\+Tiles\+Set Class Reference}
+\hypertarget{classTileServer_1_1TilesSet}{}\label{classTileServer_1_1TilesSet}\index{TileServer.TilesSet@{TileServer.TilesSet}}
+Inheritance diagram for Tile\+Server.\+Tiles\+Set:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classTileServer_1_1TilesSet}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a72dcb0275c727dfa158fbd84aca432b2}\label{classTileServer_1_1TilesSet_a72dcb0275c727dfa158fbd84aca432b2} 
+{\bfseries \+\_\+\+\_\+new\+\_\+\+\_\+} (cls, Tile\+Set\+Name, Nb)
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_ae7702af9ad6bb1429fa181948ea82e55}\label{classTileServer_1_1TilesSet_ae7702af9ad6bb1429fa181948ea82e55} 
+{\bfseries init} (self, Tile\+Set\+Name, Nb)
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_af1893077fc8354365c2fc134940fafa0}\label{classTileServer_1_1TilesSet_af1893077fc8354365c2fc134940fafa0} 
+{\bfseries remove} (self)
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a6461e63e77dba70ae63e291ebb7978da}\label{classTileServer_1_1TilesSet_a6461e63e77dba70ae63e291ebb7978da} 
+{\bfseries remove\+Tile} (self, Id)
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a73cff2be245a7f2151c7fb54ca9fb148}\label{classTileServer_1_1TilesSet_a73cff2be245a7f2151c7fb54ca9fb148} 
+{\bfseries run} (self, Tile\+Set\+Name, Nb)
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a62aacf9d7e17f54c43811e24d1b21c56}\label{classTileServer_1_1TilesSet_a62aacf9d7e17f54c43811e24d1b21c56} 
+{\bfseries wait\+\_\+client} (self, callfun, command)
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a467e18bc87d2abf9d4f346135ae49583}\label{classTileServer_1_1TilesSet_a467e18bc87d2abf9d4f346135ae49583} 
+{\bfseries execute\+\_\+all} (self, command)
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a43f6584ccfa48ebb3319836e2aef91cd}\label{classTileServer_1_1TilesSet_a43f6584ccfa48ebb3319836e2aef91cd} 
+{\bfseries get\+\_\+laststate\+\_\+execute\+\_\+all} (self)
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a26435df44ed36340936b5d8d8c7d1a31}\label{classTileServer_1_1TilesSet_a26435df44ed36340936b5d8d8c7d1a31} 
+{\bfseries execute\+\_\+list} (self, tiles\+Id, command)
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_abad7c4f254becaf1664832d7209dd310}\label{classTileServer_1_1TilesSet_abad7c4f254becaf1664832d7209dd310} 
+{\bfseries get\+\_\+laststate\+\_\+execute\+\_\+list} (self, tiles\+Id)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_ab2928b7f771248ae09d6cc3a24596971}\label{classTileServer_1_1TilesSet_ab2928b7f771248ae09d6cc3a24596971} 
+{\bfseries thread} = threading.\+Thread(target=self.\+run, args=(Tile\+Set\+Name,Nb,))
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a72015b9471c69cb4ba60e9d6f35687e6}\label{classTileServer_1_1TilesSet_a72015b9471c69cb4ba60e9d6f35687e6} 
+bool {\bfseries laststate} = False
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a6d121785af51acc3f358caec424e2c28}\label{classTileServer_1_1TilesSet_a6d121785af51acc3f358caec424e2c28} 
+int {\bfseries lastval} = 255
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_ad961553769fce04c40653b461509c06b}\label{classTileServer_1_1TilesSet_ad961553769fce04c40653b461509c06b} 
+list {\bfseries List\+Client}
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a2311f25a514d12b64e309278646c2d95}\label{classTileServer_1_1TilesSet_a2311f25a514d12b64e309278646c2d95} 
+{\bfseries Tile\+Set\+Name} = Tile\+Set\+Name
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_af914abd74b17e0c858f588bf5b678a56}\label{classTileServer_1_1TilesSet_af914abd74b17e0c858f588bf5b678a56} 
+{\bfseries Nb} = Nb
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_abd2724986bb809d9313a31396833d286}\label{classTileServer_1_1TilesSet_abd2724986bb809d9313a31396833d286} 
+bool {\bfseries Client\+Not\+Ready} = True
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a95e7fbeeac3b85829def62f61f701f9a}\label{classTileServer_1_1TilesSet_a95e7fbeeac3b85829def62f61f701f9a} 
+list {\bfseries Tile\+Json} = \+[$\,$]\+
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_af9f89b2f81360c351e865d49178ab5e2}\label{classTileServer_1_1TilesSet_af9f89b2f81360c351e865d49178ab5e2} 
+int {\bfseries Tile\+Set\+Port} = 0
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a1d6ebd83a7575571e89fcecb02da5db4}\label{classTileServer_1_1TilesSet_a1d6ebd83a7575571e89fcecb02da5db4} 
+{\bfseries lock} = threading.\+Lock()
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a02014bab10f564e316057090aa4c30fc}\label{classTileServer_1_1TilesSet_a02014bab10f564e316057090aa4c30fc} 
+{\bfseries id} = Id\+TS-\/sock.\+PORTServer
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_a329ddad7a941b9d69f1e108ac7d609f7}\label{classTileServer_1_1TilesSet_a329ddad7a941b9d69f1e108ac7d609f7} 
+{\bfseries TSconnect} = \doxymbox{\hyperlink{classconnect_1_1sock_1_1server}{sock.\+server}}(self.\+Tile\+Set\+Port)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classTileServer_1_1TilesSet_aa271c83f6b768b7ebb9a7b7e796c5ddf}\label{classTileServer_1_1TilesSet_aa271c83f6b768b7ebb9a7b7e796c5ddf} 
+list {\bfseries \+\_\+alive} = \+[$\,$]\+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVConnections/\+Tile\+Server.\+py\end{DoxyCompactItemize}

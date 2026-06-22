@@ -1,0 +1,100 @@
+\doxysection{modify\+\_\+session\+\_\+with\+\_\+nodejs Namespace Reference}
+\hypertarget{namespacemodify__session__with__nodejs}{}\label{namespacemodify__session__with__nodejs}\index{modify\_session\_with\_nodejs@{modify\_session\_with\_nodejs}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{classmodify__session__with__nodejs_1_1MyListener}{My\+Listener}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a95ee7815cd63c429e3d29ed5308c18bc}\label{namespacemodify__session__with__nodejs_a95ee7815cd63c429e3d29ed5308c18bc} 
+{\bfseries parse\+\_\+args} (argv)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a7cb0b67aae6dfd4db5714dd7dadb7438}\label{namespacemodify__session__with__nodejs_a7cb0b67aae6dfd4db5714dd7dadb7438} 
+str {\bfseries LOGIN\+\_\+} = "{}ddurandi"{}
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a21373bd5e8227d0eeb90b69631c7192f}\label{namespacemodify__session__with__nodejs_a21373bd5e8227d0eeb90b69631c7192f} 
+str {\bfseries PASSWORD\+\_\+} = "{}OtherP@ssw/\+31d"{}
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a2d1456b534fbe6016c652f4a4af2b32d}\label{namespacemodify__session__with__nodejs_a2d1456b534fbe6016c652f4a4af2b32d} 
+str {\bfseries SESSION\+\_\+} = "{}Test\+Session"{}
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a20f2282cba66b7cc43cbfa5a7d129bc9}\label{namespacemodify__session__with__nodejs_a20f2282cba66b7cc43cbfa5a7d129bc9} 
+int {\bfseries NBTILESET\+\_\+} = 1
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a52ca274edd89710986792931e7d1f565}\label{namespacemodify__session__with__nodejs_a52ca274edd89710986792931e7d1f565} 
+str {\bfseries URL} = \textquotesingle{}http:\+/\+/\+localhost:\+5000\textquotesingle{}
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_af8511193e87cdedb00640412cd9c8ff7}\label{namespacemodify__session__with__nodejs_af8511193e87cdedb00640412cd9c8ff7} 
+{\bfseries firefox\+\_\+profile} = webdriver.\+Firefox\+Profile()
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_ac82c3de7a52cd6c939615f9764832361}\label{namespacemodify__session__with__nodejs_ac82c3de7a52cd6c939615f9764832361} 
+{\bfseries driver} = webdriver.\+Firefox(firefox\+\_\+profile=firefox\+\_\+profile)
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a8612adcf1c3b4a0ceeb905a7a9327d10}\label{namespacemodify__session__with__nodejs_a8612adcf1c3b4a0ceeb905a7a9327d10} 
+{\bfseries finddriver} = Event\+Firing\+Web\+Driver(driver, \doxymbox{\hyperlink{classmodify__session__with__nodejs_1_1MyListener}{My\+Listener}}())
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_aa9e7225448b20b1573d3c9095142c504}\label{namespacemodify__session__with__nodejs_aa9e7225448b20b1573d3c9095142c504} 
+{\bfseries args} = parse\+\_\+args(sys.\+argv)
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a02ecaeb6ff84d8f82cafd08f7440d5fe}\label{namespacemodify__session__with__nodejs_a02ecaeb6ff84d8f82cafd08f7440d5fe} 
+{\bfseries Login\+Page} = finddriver.\+find\+\_\+element\+\_\+by\+\_\+xpath("{}/\+/\+button\+[@name=\textquotesingle{}button\+Login\textquotesingle{}]\+"{})
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_aebfc7d8286bc39e4ae0fc411d16f622a}\label{namespacemodify__session__with__nodejs_aebfc7d8286bc39e4ae0fc411d16f622a} 
+dict {\bfseries testform} = \{"{}username"{}:\+args.\+login,"{}password"{}:\+args.\+password\}
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a8c95013456ac0dd57f468b12f19c559d}\label{namespacemodify__session__with__nodejs_a8c95013456ac0dd57f468b12f19c559d} 
+{\bfseries input\+Element} = finddriver.\+find\+\_\+element\+\_\+by\+\_\+id(t)
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_af33843210ede82b40eab271d27afca8d}\label{namespacemodify__session__with__nodejs_af33843210ede82b40eab271d27afca8d} 
+{\bfseries remember\+\_\+me} = finddriver.\+find\+\_\+element\+\_\+by\+\_\+id("{}remember\+\_\+me"{})
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a3c7c08988f0d7a21ef7332f3e7913890}\label{namespacemodify__session__with__nodejs_a3c7c08988f0d7a21ef7332f3e7913890} 
+{\bfseries choose\+\_\+session} = finddriver.\+find\+\_\+element\+\_\+by\+\_\+xpath("{}/\+/\+input\+[@id=\textquotesingle{}choice\+\_\+project-\/1\textquotesingle{}]\+"{})
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_ab919c5510ec8ca5e381aead4e402dc62}\label{namespacemodify__session__with__nodejs_ab919c5510ec8ca5e381aead4e402dc62} 
+{\bfseries el} = finddriver.\+find\+\_\+element\+\_\+by\+\_\+id("{}submit"{})
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a4e5ef0945ac6968f05c43ba138bc80e0}\label{namespacemodify__session__with__nodejs_a4e5ef0945ac6968f05c43ba138bc80e0} 
+{\bfseries my\+\_\+own\+\_\+session} = args.\+mysession
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_ab782f84201487c16e050d33456883d76}\label{namespacemodify__session__with__nodejs_ab782f84201487c16e050d33456883d76} 
+{\bfseries sessionfilter} = finddriver.\+find\+\_\+element\+\_\+by\+\_\+id("{}filter\+\_\+chosen\+\_\+project\+\_\+session"{})
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a1fb0c9a3a0e8d69399ae9648de1ec702}\label{namespacemodify__session__with__nodejs_a1fb0c9a3a0e8d69399ae9648de1ec702} 
+{\bfseries go\+Button} = finddriver.\+find\+\_\+element\+\_\+by\+\_\+id("{}Valid\+\_\+chosen\+\_\+project\+\_\+session"{})
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_ab87a7a55e96d9c776926d88ddb5c2305}\label{namespacemodify__session__with__nodejs_ab87a7a55e96d9c776926d88ddb5c2305} 
+{\bfseries edit\+\_\+session} = finddriver.\+find\+\_\+element\+\_\+by\+\_\+xpath(\textquotesingle{}/\+/\+input\+[@value="{}Edit session before grid"{}]\+\textquotesingle{})
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_aa8bba4999c948f56f0133723fd602b00}\label{namespacemodify__session__with__nodejs_aa8bba4999c948f56f0133723fd602b00} 
+{\bfseries id\+Tileset} = args.\+tilesetmodifs\+[2\texorpdfstring{$\ast$}{*}ts]\+
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a2cf63851a44b86215790f0c02e621429}\label{namespacemodify__session__with__nodejs_a2cf63851a44b86215790f0c02e621429} 
+{\bfseries choose\+\_\+ts} = finddriver.\+find\+\_\+element\+\_\+by\+\_\+xpath("{}/\+/\+label\+[contains(., \textquotesingle{}"{}+id\+Tileset+"{}\textquotesingle{})]\+/\+input"{})
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_aacb2068b6fe135fb6e643a790bacdddc}\label{namespacemodify__session__with__nodejs_aacb2068b6fe135fb6e643a790bacdddc} 
+{\bfseries edit\+\_\+ts} = finddriver.\+find\+\_\+element\+\_\+by\+\_\+xpath("{}/\+/\+form\+[@id=\textquotesingle{}login-\/form\textquotesingle{}]\+/\+input\+[@id=\textquotesingle{}edit\textquotesingle{}]\+"{})
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a7f263abae3455ccd11c5b5977b70fdaa}\label{namespacemodify__session__with__nodejs_a7f263abae3455ccd11c5b5977b70fdaa} 
+{\bfseries elem} = finddriver.\+find\+\_\+element\+\_\+by\+\_\+xpath("{}/\+/\+textarea\+[@id=\textquotesingle{}json\+\_\+tiles\+\_\+text\textquotesingle{}]\+"{})
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_aa20e71c1f35a35a1983360a132d1b039}\label{namespacemodify__session__with__nodejs_aa20e71c1f35a35a1983360a132d1b039} 
+{\bfseries jsfile} = args.\+tilesetmodifs\+[2\texorpdfstring{$\ast$}{*}ts+1]\+
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_a3615934a0b531ff3c4ec0db54aefc745}\label{namespacemodify__session__with__nodejs_a3615934a0b531ff3c4ec0db54aefc745} 
+{\bfseries fdfile} = open(jsfile)
+\item 
+\Hypertarget{namespacemodify__session__with__nodejs_aa6bf51fe59032eb23a4b45a591a40253}\label{namespacemodify__session__with__nodejs_aa6bf51fe59032eb23a4b45a591a40253} 
+{\bfseries data} = fdfile.\+read()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Modify TiledViz sessions with Selenium
+\end{DoxyVerb}
+ 

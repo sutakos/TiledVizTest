@@ -1,0 +1,50 @@
+\chapter{README\+\_\+\+Frontend }
+\hypertarget{md__2local_2home_2ll288128_2Projets_2TiledViz_2TVConnections_2README__Frontend}{}\label{md__2local_2home_2ll288128_2Projets_2TiledViz_2TVConnections_2README__Frontend}\index{README\_Frontend@{README\_Frontend}}
+TVConnection is launched from tvconnections.\+sh in connection docker to manage password to Frontend of HPC machine.
+
+It creates VNC secure flux with TVSecure in secure host and a communication socket with the client browser through Flask server with action.\+json list of actions.
+
+It launchs the script job.
+
+Launch Tile\+Server by hand on Frontend with logging :\+ ipython3 .tiledviz/\+\+Tile\+Server.\+py --debug 2\texorpdfstring{$>$}{>}\&1 \texorpdfstring{$\vert$}{|}tee -\/a /\+tmp/\+\+Tile\+Server\+\_\+ One can switch DEBUG to increase verbosity and control message with clients.
+
+Generic functions for all cases :\+ "{}tile\+Num"{} is the number of a tile in a Tile\+Set and "{}tile\+Id"{} is a string for its Id given by container\+Id(tile\+Num+1).
+
+
+\begin{DoxyItemize}
+\item Get\+\_\+client\+\_\+\+IP:\+ return the IP of a client
+\item tunnel :\+ launch /\+opt/\+tunnel\+\_\+ssh for activating the secure tunnel of VNC stream.
+\item vnc :\+ launch the vnc server with /\+opt/\+vnccommand script.
+\item init\+\_\+wmctrl :\+ call a global wmctrl call to list all windows in the tile.
+\item clear\+\_\+\+VNC :\+ send clear-\/all command to the vnc server if it appears problems with keyboard interaction.
+\item change\+Size :\+ change tile resolution.
+\item fullscreen\+This\+App :\+ toggle fullscreen option for a window.
+\item show\+This\+GUI :\+ toggle above a window.
+\item click\+Point :\+ send a click event on a given position.
+\item kill\+\_\+all\+\_\+containers :\+ this function must be defined in all case script for killing all containers.
+\end{DoxyItemize}
+
+Action sur les conteneurs :\+ grabwin kill\+\_\+ssh launch\+\_\+command launch\+\_\+dockers launch\+\_\+tunnels launch\+\_\+vncviewer launch\+\_\+\+Wall launch\+\_\+x11vnc replace\+\_\+init\+\_\+window rescale\+\_\+docker stop\+\_\+dockers
+
+Client-\/serveur VMD :\+ analyse\+\_\+new\+Noeuds.\+py UDP\+\_\+2\+\_\+multi\+\_\+\+TCP.\+py
+
+Actions globales :\+ build\+\_\+mageia\+\_\+git build\+\_\+\+Web\+RTC\+\_\+git all\+\_\+dockers\+\_\+images all\+\_\+dockers\+\_\+ps all\+\_\+dockers\+\_\+rm all\+\_\+dockers\+\_\+stop all\+\_\+services\+\_\+docker\+\_\+restart mydocker-\/join mydocker-\/swarm stop\+\_\+all\+\_\+dockers clear\+\_\+images
+
+On GPU computation nodes :\+
+\begin{DoxyItemize}
+\item All informations on GPU devices on the node nvidia-\/smi or mode detailed nvidia-\/smi -\/q
+\item with ls hardware you can search "{}3\+D controller"{} :\+ lshw -\/xml
+\item we need to create /\+dev/\+nvidia\# with \# in GPUlist=\+[0-\/4]\+ for example for gpu in GPUlist; do nvidia-\/modprobe --create-\/nvidia-\/device-\/file=\$gpu done \+\#mknod /\+dev/\+nvidia0 c 195 0 mknod /\+dev/\+nvidiactl c 195 255 mknod /\+dev/\+nvidia-\/uvm c 241 0 mknod /\+dev/\+nvidia-\/uvm-\/tools c 241 1 mknod /\+dev/\+nvidia-\/modset c 195 254 chmod 666 /\+dev/\+nvidiactl /\+dev/\+nvidia-\/uvm /\+dev/\+nvidia-\/uvm-\/tools /\+dev/\+nvidia-\/modset
+\end{DoxyItemize}
+
+Docker with Swarm :\+ Must install docker on each node, build and copy mageainvidia (for example) image on each node (or pull a Xvnc system from a hub).
+
+Build mageia docker (used in Tiled\+Test scripts) for example.
+\begin{DoxyItemize}
+\item Copy some authorized keys to your frontend in TVConnections/\+mageianvidia/\+ssh (to make secure tunneling of vnc stream)
+\item Build container :\+ docker build -\/t mageianvidia -\/f TVConnections/\+mageianvidia/\+\+Dockerfile .
+\end{DoxyItemize}
+
+Singularity :\+ Change rights with X launch on nodes /\+etc/\+pam.d/\+xserver \+\#auth required pam\+\_\+console.\+so auth sufficient pam\+\_\+permit.\+so account sufficient pam\+\_\+permit.\+so because of the creation of /\+tmp/\+.X\#-\/lock lock file and /\+tmp/\+.X11-\/unix/\+X\# socket on the host for nvidia acceleration inside the container.
+
+On the forwarding frontend if you use Open\+SSH sshd server, the server\textquotesingle{}s Gateway\+Ports option needs to be enabled. 

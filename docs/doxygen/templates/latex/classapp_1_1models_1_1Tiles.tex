@@ -1,0 +1,58 @@
+\doxysection{app.\+models.\+Tiles Class Reference}
+\hypertarget{classapp_1_1models_1_1Tiles}{}\label{classapp_1_1models_1_1Tiles}\index{app.models.Tiles@{app.models.Tiles}}
+Inheritance diagram for app.\+models.\+Tiles:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classapp_1_1models_1_1Tiles}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_a6b9126b3b9aab3149ab542643c7356a8}\label{classapp_1_1models_1_1Tiles_a6b9126b3b9aab3149ab542643c7356a8} 
+Mapped {\bfseries id} = mapped\+\_\+column(Integer, primary\+\_\+key=True)
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_a82caa8955104be3a21cee6cdd36804be}\label{classapp_1_1models_1_1Tiles_a82caa8955104be3a21cee6cdd36804be} 
+Mapped {\bfseries pos\+\_\+px\+\_\+x} = mapped\+\_\+column(Integer, nullable=False)
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_a66411b1a9beefd7bec53192ca12382ec}\label{classapp_1_1models_1_1Tiles_a66411b1a9beefd7bec53192ca12382ec} 
+Mapped {\bfseries pos\+\_\+px\+\_\+y} = mapped\+\_\+column(Integer, nullable=False)
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_a3f1a527cceaa78f5e6721e22d0d7e71b}\label{classapp_1_1models_1_1Tiles_a3f1a527cceaa78f5e6721e22d0d7e71b} 
+Mapped {\bfseries source} = mapped\+\_\+column(JSON, nullable=False, comment=\textquotesingle{}source of the tile :\+ may be an url or a path in a directory of initial conditions or a list of paths.\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_a27730f3dd6720e57b56a16af7689c3ea}\label{classapp_1_1models_1_1Tiles_a27730f3dd6720e57b56a16af7689c3ea} 
+Mapped {\bfseries title} = mapped\+\_\+column(String(80))
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_a88e81eaf3830cdc529e2aafd5d6f9bca}\label{classapp_1_1models_1_1Tiles_a88e81eaf3830cdc529e2aafd5d6f9bca} 
+Mapped {\bfseries pos\+\_\+id\+\_\+x} = mapped\+\_\+column(Integer)
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_a5c7159a7c96aa71c955b3416d3cfbbf1}\label{classapp_1_1models_1_1Tiles_a5c7159a7c96aa71c955b3416d3cfbbf1} 
+Mapped {\bfseries pos\+\_\+id\+\_\+y} = mapped\+\_\+column(Integer)
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_a56c3a1da88e6b1ae2dad38320736fbd1}\label{classapp_1_1models_1_1Tiles_a56c3a1da88e6b1ae2dad38320736fbd1} 
+Mapped {\bfseries comment} = mapped\+\_\+column(Text)
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_aa2caad1721b106ecac1b090e6bc4c3ec}\label{classapp_1_1models_1_1Tiles_aa2caad1721b106ecac1b090e6bc4c3ec} 
+Mapped {\bfseries tags} = mapped\+\_\+column(JSON)
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_a24ad3590249067f1e292207dd214eeb2}\label{classapp_1_1models_1_1Tiles_a24ad3590249067f1e292207dd214eeb2} 
+Mapped {\bfseries id\+\_\+connections} = mapped\+\_\+column(Integer)
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_a99affbd09892446a507f89064becb91a}\label{classapp_1_1models_1_1Tiles_a99affbd09892446a507f89064becb91a} 
+Mapped {\bfseries creation\+\_\+date} = mapped\+\_\+column(Date\+Time)
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_af2d014ceae6409d09e26e37ced43a99a}\label{classapp_1_1models_1_1Tiles_af2d014ceae6409d09e26e37ced43a99a} 
+Mapped {\bfseries Id\+Location} = mapped\+\_\+column(Small\+Integer)
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_ae43d2f90a9ad59fdf781a78fde3c0919}\label{classapp_1_1models_1_1Tiles_ae43d2f90a9ad59fdf781a78fde3c0919} 
+Mapped {\bfseries tile\+\_\+sets} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1TileSets}{Tile\+Sets}}\textquotesingle{}, secondary=\textquotesingle{}many\+\_\+tiles\+\_\+has\+\_\+many\+\_\+tile\+\_\+sets\textquotesingle{}, back\+\_\+populates=\textquotesingle{}tiles\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Tiles_a37a236f3a7ff5865e85fe6f5c1863f0a}\label{classapp_1_1models_1_1Tiles_a37a236f3a7ff5865e85fe6f5c1863f0a} 
+Mapped {\bfseries connections} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Connections}{Connections}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}tiles\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVWeb/\+app/\+models.\+py\end{DoxyCompactItemize}

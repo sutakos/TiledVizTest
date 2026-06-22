@@ -1,0 +1,67 @@
+\doxysection{app.\+models.\+Users Class Reference}
+\hypertarget{classapp_1_1models_1_1Users}{}\label{classapp_1_1models_1_1Users}\index{app.models.Users@{app.models.Users}}
+Inheritance diagram for app.\+models.\+Users:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classapp_1_1models_1_1Users}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_ada79b36058167c97e6fcbc017814e034}\label{classapp_1_1models_1_1Users_ada79b36058167c97e6fcbc017814e034} 
+Mapped {\bfseries id} = mapped\+\_\+column(Integer, primary\+\_\+key=True)
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_a15d111237767d4513fd3e3383a2b87cb}\label{classapp_1_1models_1_1Users_a15d111237767d4513fd3e3383a2b87cb} 
+Mapped {\bfseries name} = mapped\+\_\+column(String(80), nullable=False)
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_a7caf45625cfdb488c171f76da70cb83b}\label{classapp_1_1models_1_1Users_a7caf45625cfdb488c171f76da70cb83b} 
+Mapped {\bfseries salt} = mapped\+\_\+column(CHAR(20), nullable=False)
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_a6e944c99688472e91e5114b6a1f2b91c}\label{classapp_1_1models_1_1Users_a6e944c99688472e91e5114b6a1f2b91c} 
+Mapped {\bfseries is\+\_\+verified} = mapped\+\_\+column(Boolean, nullable=False, server\+\_\+default=text(\textquotesingle{}false\textquotesingle{}))
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_a6699df2bbe047d58610c2881b63b28ab}\label{classapp_1_1models_1_1Users_a6699df2bbe047d58610c2881b63b28ab} 
+Mapped {\bfseries creation\+\_\+date} = mapped\+\_\+column(Date\+Time)
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_a4ae05580462ac6746dcef5cf4d43e2ce}\label{classapp_1_1models_1_1Users_a4ae05580462ac6746dcef5cf4d43e2ce} 
+Mapped {\bfseries mail} = mapped\+\_\+column(String(80))
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_a80aca3b8b1f58ca40a546dbe6d6214bf}\label{classapp_1_1models_1_1Users_a80aca3b8b1f58ca40a546dbe6d6214bf} 
+Mapped {\bfseries compagny} = mapped\+\_\+column(String)
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_a4de16ba2f2cf756df1581ba3ba488665}\label{classapp_1_1models_1_1Users_a4de16ba2f2cf756df1581ba3ba488665} 
+Mapped {\bfseries manager} = mapped\+\_\+column(String(80), comment=\textquotesingle{}Project manager\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_a5d620e72cf5aa484ab47aeb3057a867a}\label{classapp_1_1models_1_1Users_a5d620e72cf5aa484ab47aeb3057a867a} 
+Mapped {\bfseries password} = mapped\+\_\+column(CHAR(128))
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_a022c538830da29e5683dc4fe1e5b1bea}\label{classapp_1_1models_1_1Users_a022c538830da29e5683dc4fe1e5b1bea} 
+Mapped {\bfseries dateverified} = mapped\+\_\+column(Date\+Time)
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_ae79606ea33d457d12f0d16093de9432e}\label{classapp_1_1models_1_1Users_ae79606ea33d457d12f0d16093de9432e} 
+Mapped {\bfseries is\+\_\+admin} = mapped\+\_\+column(Boolean, server\+\_\+default=text(\textquotesingle{}false\textquotesingle{}), comment=\textquotesingle{}Whether the user is an administrator\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_a964eedae89615a35e2b5f062c76917b2}\label{classapp_1_1models_1_1Users_a964eedae89615a35e2b5f062c76917b2} 
+Mapped {\bfseries connections} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Connections}{Connections}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}users\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_ab9750f9cabdc8f012bbbdff8ac66e0c0}\label{classapp_1_1models_1_1Users_ab9750f9cabdc8f012bbbdff8ac66e0c0} 
+Mapped {\bfseries projects} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Projects}{Projects}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}users\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_a03b695d54894f935e16360149ddb5b3a}\label{classapp_1_1models_1_1Users_a03b695d54894f935e16360149ddb5b3a} 
+Mapped {\bfseries project\+\_\+members\+\_\+id\+\_\+users} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1ProjectMembers}{Project\+Members}}\textquotesingle{}, foreign\+\_\+keys=\textquotesingle{}\+[Project\+Members.\+id\+\_\+users]\+\textquotesingle{}, back\+\_\+populates=\textquotesingle{}users\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_a614edfdba345d9566bc3c4b4c0920ce5}\label{classapp_1_1models_1_1Users_a614edfdba345d9566bc3c4b4c0920ce5} 
+Mapped {\bfseries project\+\_\+members\+\_\+user} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1ProjectMembers}{Project\+Members}}\textquotesingle{}, foreign\+\_\+keys=\textquotesingle{}\+[Project\+Members.\+user\+\_\+id]\+\textquotesingle{}, back\+\_\+populates=\textquotesingle{}user\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_a95a6ac72a4e75c1f6fd73118c7a07fd6}\label{classapp_1_1models_1_1Users_a95a6ac72a4e75c1f6fd73118c7a07fd6} 
+Mapped {\bfseries sessions} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1Sessions}{Sessions}}\textquotesingle{}, secondary=\textquotesingle{}many\+\_\+users\+\_\+has\+\_\+many\+\_\+sessions\textquotesingle{}, back\+\_\+populates=\textquotesingle{}users\textquotesingle{})
+\item 
+\Hypertarget{classapp_1_1models_1_1Users_aec2df1d9799b6e36931094d459abaea5}\label{classapp_1_1models_1_1Users_aec2df1d9799b6e36931094d459abaea5} 
+Mapped {\bfseries invite\+\_\+links} = relationship(\textquotesingle{}\doxymbox{\hyperlink{classapp_1_1models_1_1InviteLinks}{Invite\+Links}}\textquotesingle{}, back\+\_\+populates=\textquotesingle{}users\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+/\+local/\+home/\+ll288128/\+\+Projets/\+\+Tiled\+Viz/\+\+TVWeb/\+app/\+models.\+py\end{DoxyCompactItemize}
