@@ -25,8 +25,8 @@ jobs:
 
       - name: Get documentation
         run: |
-        cd docs/doxygen
-        doxygen Doxyfile
+          cd docs/doxygen
+          doxygen Doxyfile
 
       - name: Prepare html dir.
         uses: actions/upload-pages-artifact@v3
