@@ -23,7 +23,8 @@ jobs:
       - name: Generate Doxygen
         uses: mattnotmitt/doxygen-action@v1.12
         with:
-          doxyfile-path: 'docs/doxygen'
+          working-directory: 'TiledViz/'
+          doxyfile-path: 'docs/doxygen/'
           
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
