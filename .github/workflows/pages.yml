@@ -25,12 +25,12 @@ jobs:
           echo "Actual dir : $(pwd)"
           echo "Content :"
           ls -R
-          if [ -f "docs/doxygen/DoxyFile" ]; then echo "DoxyFile found"; else echo "DoxyFile not found"; fi
+          if [ -f "docs/doxygen/Doxyfile" ]; then echo "DoxyFile found"; else echo "DoxyFile not found"; fi
           
       - name: Generate Doxygen
         uses: mattnotmitt/doxygen-action@edge
         with:
-          doxyfile-path: 'docs/doxygen/DoxyFile'
+          doxyfile-path: 'docs/doxygen/Doxyfile'
           
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
