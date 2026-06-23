@@ -20,6 +20,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
+      - name: Debug Workspace
+        run: |
+          echo "Actual dir : $(pwd)"
+          echo "Content :"
+          ls -R
+          if [ -f "docs/doxygen/DoxyFile" ]; then echo "DoxyFile found"; else echo "DoxyFile not found"; fi
+          
       - name: Generate Doxygen
         uses: mattnotmitt/doxygen-action@edge
         with:
