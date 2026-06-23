@@ -21,10 +21,9 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
       - name: Generate Doxygen
-        uses: mattnotmitt/doxygen-action@v1.12
+        uses: mattnotmitt/doxygen-action@edge
         with:
-          working-directory: 'TiledViz/'
-          doxyfile-path: 'docs/doxygen/'
+          doxyfile-path: 'docs/doxygen/DoxyFile'
           
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
