@@ -183,6 +183,7 @@ jobs:
           docker exec rocky dnf install -y python3-pip screen htop lsof strace emacs-nox nano patch libcap-devel python3-devel postgresql expect openssl gcc postgresql-devel
           docker exec rocky dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
           docker exec rocky dnf install -y docker-ce-cli docker-buildx-plugin
+          docker exec rocky dnf install -y which
 
           export UserId=$(id -u)
           export GroupId=$(id -g)
