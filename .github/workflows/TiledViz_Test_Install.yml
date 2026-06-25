@@ -54,6 +54,11 @@ jobs:
                       type filter hook input priority filter; policy drop;
                       iif "lo" accept
                       ct state established,related accept
+
+                      # Fix for letting github action finish
+                      iifname "docker0" accept
+                      iifname "br-*" accept
+                      
                       # Allow ping
                       icmp type echo-request limit rate 5/second accept
                       tcp dport $SSHport accept
@@ -150,7 +155,7 @@ jobs:
         run: |
           export PYTHONPATH="$PWD:$PWD/TVDatabase:$PYTHONPATH"
           expect << 'EOF'
-          set timeout -1
+          set timeout 120
 
           spawn ./launch_TiledViz
           expect "Please give a password for your Flask server."
@@ -354,7 +359,7 @@ jobs:
 
           export PYTHONPATH="$PWD:$PWD/TVDatabase:$PYTHONPATH"
           expect << 'EXPECT_EOF'
-          set timeout -1
+          set timeout 120
           spawn ./launch_TiledViz
           expect "Please give a password for your Flask server."
           send "$env(POSTGRESQL_PASSWORD)\r"
