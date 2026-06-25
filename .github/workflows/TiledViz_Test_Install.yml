@@ -95,7 +95,7 @@ jobs:
           spawn ./install.sh
 
           expect "Activate firewallT for Tiledviz ? : ('n' or 'y')"
-          send "n\r"
+          send "y\r"
 
           expect "Please give the Docker name of PostGresQL DB (default: tiledvizpostg)."
           send "tiledvizpostg\r"
@@ -141,7 +141,7 @@ jobs:
           expect "# Do you want to restore from a PostgreSQL dump file ? Please give the path to file or empty string if not"
           send "\r\r"
 
-          expect "====== End build dockers ======"
+          expect " All finished."
           EOF
 
       - name: Launch TiledViz
@@ -338,7 +338,7 @@ jobs:
           expect "# Do you want to restore from a PostgreSQL dump file ? Please give the path to file or empty string if not"
           send "\r\r"
 
-          expect "====== End build dockers ======"
+          expect " All finished."
 
 
 
