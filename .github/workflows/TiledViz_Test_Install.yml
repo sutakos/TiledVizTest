@@ -51,15 +51,10 @@ jobs:
             sudo cat << NFT_EOF > /etc/nftables.conf
             table inet filter {
               chain input {
-                      type filter hook input priority filter; policy drop;
+                      # Changing policy drop to accept so the CI can communicate with GitHub
+                      type filter hook input priority filter; policy accept;
                       iif "lo" accept
                       ct state established,related accept
-
-                      # Fix for letting github action finish
-                      iifname "docker0" accept
-                      iifname "br-*" accept
-                      iifname "eth*" accept
-                      iifname "ens*" accept
                       
                       # Allow ping
                       icmp type echo-request limit rate 5/second accept
