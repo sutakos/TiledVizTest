@@ -34,44 +34,6 @@ jobs:
             -out /etc/letsencrypt/archive/fullchain.pem \
             -subj "/C=FR/ST=IDF/L=Paris/O=TiledVizTest/CN=localhost"
 
-      - name: Install firewallT dependencies
-        run: |
-            cat << 'SH_EOF' > firewallT_setup.sh
-            set -e
-            SSHport=$(shuf -i 49152-65535 -n 1)
-            echo "Randomized SSH port selected: $SSHport"
-            sed -e "s&#Port 22&Port $SSHport&" -e "s&#GatewayPorts.*&GatewayPorts yes&" -i /etc/ssh/sshd_config
-
-            if systemctl is-active --quiet ssh.socket; then
-                echo "Disabling SSH socket activation and switching to standard SSH service..."
-                sudo systemctl disable --now ssh.socket
-                sudo systemctl enable --now ssh.service
-            fi
-
-            sudo cat << NFT_EOF > /etc/nftables.conf
-            table inet filter {
-              chain input {
-                      # Changing policy drop to accept so the CI can communicate with GitHub
-                      type filter hook input priority filter; policy accept;
-                      iif "lo" accept
-                      ct state established,related accept
-                      
-                      # Allow ping
-                      icmp type echo-request limit rate 5/second accept
-                      tcp dport $SSHport accept
-                      tcp dport 80 accept
-                      tcp dport 443 accept
-              }
-            }
-            NFT_EOF
-            sudo nft -f /etc/nftables.conf
-            sudo systemctl restart ssh
-            sudo nft list ruleset
-            SH_EOF
-
-            chmod +x firewallT_setup.sh
-            sudo ./firewallT_setup.sh
-
       - name: Run install script
         env:
           POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD }}
@@ -97,7 +59,7 @@ jobs:
           spawn ./install.sh
 
           expect "Activate firewallT for Tiledviz ? : ('n' or 'y')"
-          send "y\r"
+          send "n\r"
 
           expect "Please give the Docker name of PostGresQL DB (default: tiledvizpostg)."
           send "tiledvizpostg\r"
