@@ -107,32 +107,33 @@ jobs:
 
           expect " All finished."
           EOF
-
-      - name: Launch TiledViz
+      - name: Launch TiledViz in Background
         env:
           POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD }}
         run: |
           export PYTHONPATH="$PWD:$PWD/TVDatabase:$PYTHONPATH"
-          expect << 'EOF'
+        
+          expect << 'EOF' &
           set timeout 120
-
           spawn ./launch_TiledViz
           expect "Please give a password for your Flask server."
           send "$env(POSTGRESQL_PASSWORD)\r"
-
+          
           expect "==== Running ... ===="
-          set timeout 5
-          expect {
-              eof {
-                  send_user "\n❌ ERROR : Server Crashed\n"
-                  exit 1
-              }
-              timeout {
-                  send_user "\n✅ SUCCESS : Server Stable\n"
-                  exit 0
-              }
-          }
+          interact
           EOF
+          
+          sleep 5
+
+      - name: Wait for Server to be Responsive
+        run: |
+          timeout 60s bash -c 'until curl --silent --fail ${{ secrets.SERVER_DOMAIN }}; do sleep 2; done' || (echo "❌ Timeout" && exit 1)
+
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.13.0
+        with:
+          target: ${{ secrets.SERVER_DOMAIN }}
+        
 
   Install-Rocky-Linux:
     runs-on: ubuntu-latest
