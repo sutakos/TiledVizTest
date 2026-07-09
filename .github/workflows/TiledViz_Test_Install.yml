@@ -132,7 +132,7 @@ jobs:
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.13.0
         with:
-          target: ${{ secrets.SERVER_DOMAIN }}
+          target: "https://${{ secrets.SERVER_DOMAIN }}"
         
 
   Install-Rocky-Linux:
