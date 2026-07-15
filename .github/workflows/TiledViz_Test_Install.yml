@@ -32,8 +32,7 @@ jobs:
           sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
             -keyout /etc/letsencrypt/archive/privkey.pem \
             -out /etc/letsencrypt/archive/fullchain.pem \
-            -subj "/C=FR/ST=IDF/L=Paris/O=TiledVizTest/CN=localhost"
-
+            -subj "/C=FR/ST=IDF/L=Paris/O=TiledVizTest/CN=${{ secrets.SERVER_DOMAIN }}"
       - name: Run install script
         env:
           POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD }}
@@ -127,7 +126,7 @@ jobs:
 
       - name: Wait for Server to be Responsive
         run: |
-          timeout 60s bash -c 'until curl -k --silent --fail https://localhost; do sleep 2; done' || (echo "❌ Timeout" && exit 1)
+          timeout 60s bash -c 'until curl -k --fail https://${{ secrets.SERVER_DOMAIN }}; do sleep 2; echo "Attente du démarrage du serveur..."; done' || (echo "❌ Timeout" && exit 1)
 
       - name: Get local Runner IP
         id: get-ip
@@ -137,7 +136,6 @@ jobs:
         uses: zaproxy/action-full-scan@v0.13.0
         with:
           target: "https://${{ env.RUNNER_IP }}"
-          cmd_options: '-config network.localServers.mainProxy.api.disablekey=true'
         
 
   Install-Rocky-Linux:
