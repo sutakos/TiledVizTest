@@ -5,13 +5,9 @@ on:
   workflow_dispatch:
 
 jobs:
-
   Install-Ubuntu:
-
     runs-on: ubuntu-latest
-
     steps:
-
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
 
@@ -20,10 +16,10 @@ jobs:
 
       - name: Install expect
         run: sudo apt-get install -y expect
-        
+
       - name: Install libcap-dev
         run: sudo apt-get install -y libcap-dev
-        
+
       - name: Install docker
         run: |
           sudo usermod -aG docker $USER
@@ -55,116 +51,75 @@ jobs:
           IMAP_PORT_ADDRESS: ${{ secrets.IMAP_PORT_ADDRESS }}
           NTP_SERVER_ADDRESS: ${{ secrets.NTP_SERVER_ADDRESS }}
         run: |
-
           export BUILDKIT_PROGRESS=plain
-
           export DOCKER_BUILDKIT=1
 
           expect << 'EOF'
-
           set timeout -1
-
           spawn ./install.sh
 
           expect "Activate firewallT for Tiledviz ? : ('n' or 'y')"
-
           send "n\r"
 
           expect "Please give the Docker name of PostGresQL DB (default: tiledvizpostg)."
-
           send "tiledvizpostg\r"
 
           expect "Please give its external PORT (default: 6431)."
-
           send "6431\r"
 
           expect "Please give a password for your postgresql DB : (forbiden '@', '/', '|' !)"
-
           send "$env(POSTGRESQL_PASSWORD)\r"
 
           expect "Please give a SERVER.DOMAIN for your SSL web server"
-
           send "$env(SERVER_DOMAIN)\r"
 
           expect "Please give the PUBLIC SSL key PATH."
-
           send "$env(PUBLIC_SSL_PATH)\r"
-
           expect "Please give the PRIVATE SSL key PATH."
-
           send "$env(PRIVATE_SSL_PATH)\r"
 
           expect "Please give your SMTP server address - the outgoing mail server."
-
           send "$env(SMTP_SERVER_ADDRESS)\r"
-
           expect "Please give your SMTP PORT address - for the outgoing mail server."
-
           send "$env(SMTP_PORT_ADDRESS)\r"
-
           expect "Please give your SMTP SSL option - for the outgoing mail server."
-
           send "$env(SMTP_SSL_OPTION)\r"
-
           expect "Please give your SMTP TLS option - for the outgoing mail server."
-
           send "$env(SMTP_TLS_OPTION)\r"
-
           expect "Please give your SMTP user name - for the outgoing mail server."
-
           send "$env(SMTP_USERNAME)\r"
-
           expect "Please give your SMTP password - for the outgoing mail server."
-
           send "$env(SMTP_PASSWORD)\r"
 
           expect "Please give this TiledViz email - for the outgoing mail server."
-
           send "$env(TILEDVIZ_EMAIL)\r"
 
           expect "Please give your IMAP server address - the ingoing mail server."
-
           send "$env(IMAP_SERVER_ADDRESS)\r"
-
           expect "Please give your IMAP PORT address - for the ingoing mail server."
-
           send "$env(IMAP_PORT_ADDRESS)\r"
 
           expect "Please give your NTP server address - the time server."
-
           send "$env(NTP_SERVER_ADDRESS)\r"
 
           expect "# Do you want to restore from a PostgreSQL dump file ? Please give the path to file or empty string if not"
-
           send "\r\r"
 
           expect " All finished."
-
           EOF
 
       - name: Launch TiledViz and Verify Startup
-
         env:
-
           POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD }}
-
         run: |
-
           export PYTHONPATH="$PWD:$PWD/TVDatabase:$PYTHONPATH"
-
           cat << 'SH_EOF' > run_launch.sh
-
           expect << 'EXPECT_EOF'
-
           set timeout 120
-
           spawn ./launch_TiledViz
-
           expect "Please give a password for your Flask server."
-          
           send "$env(POSTGRESQL_PASSWORD)\r"
           expect "==== Running ... ===="
-          
           set timeout 5
           expect {
               eof {
