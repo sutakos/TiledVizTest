@@ -5,136 +5,239 @@ on:
   workflow_dispatch:
 
 jobs:
+
   Install-Ubuntu:
+
     runs-on: ubuntu-latest
+
     steps:
+
       - name: Checkout
+
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
 
       - name: Install Python
+
         run: sudo apt-get install -y python3-pip
 
       - name: Install expect
+
         run: sudo apt-get install -y expect
 
       - name: Install libcap-dev
+
         run: sudo apt-get install -y libcap-dev
 
       - name: Install docker
+
         run: |
+
           sudo usermod -aG docker $USER
+
           sudo systemctl start docker || true
+
           sudo chmod 666 /var/run/docker.sock
 
       - name: Generate mock SSL certificates for tests
+
         run: |
+
           sudo mkdir -p /etc/letsencrypt/archive
+
           sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+
             -keyout /etc/letsencrypt/archive/privkey.pem \
+
             -out /etc/letsencrypt/archive/fullchain.pem \
+
             -subj "/C=FR/ST=IDF/L=Paris/O=TiledVizTest/CN=${{ secrets.SERVER_DOMAIN }}"
+
       - name: Run install script
+
         env:
+
           POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD }}
+
           SERVER_DOMAIN: ${{ secrets.SERVER_DOMAIN }}
+
           PUBLIC_SSL_PATH: "/etc/letsencrypt/archive/fullchain.pem"
+
           PRIVATE_SSL_PATH: "/etc/letsencrypt/archive/privkey.pem"
+
           SMTP_SERVER_ADDRESS: ${{ secrets.SMTP_SERVER_ADDRESS }}
+
           SMTP_PORT_ADDRESS: ${{ secrets.SMTP_PORT_ADDRESS }}
+
           SMTP_SSL_OPTION: ${{ secrets.SMTP_SSL_OPTION }}
+
           SMTP_TLS_OPTION: ${{ secrets.SMTP_TLS_OPTION }}
+
           SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+
           TILEDVIZ_EMAIL: ${{ secrets.TILEDVIZ_EMAIL }}
+
           IMAP_SERVER_ADDRESS: ${{ secrets.IMAP_SERVER_ADDRESS }}
+
           IMAP_PORT_ADDRESS: ${{ secrets.IMAP_PORT_ADDRESS }}
+
           NTP_SERVER_ADDRESS: ${{ secrets.NTP_SERVER_ADDRESS }}
+
         run: |
+
           export BUILDKIT_PROGRESS=plain
+
           export DOCKER_BUILDKIT=1
 
           expect << 'EOF'
+
           set timeout -1
+
           spawn ./install.sh
 
           expect "Activate firewallT for Tiledviz ? : ('n' or 'y')"
+
           send "n\r"
 
           expect "Please give the Docker name of PostGresQL DB (default: tiledvizpostg)."
+
           send "tiledvizpostg\r"
 
           expect "Please give its external PORT (default: 6431)."
+
           send "6431\r"
 
           expect "Please give a password for your postgresql DB : (forbiden '@', '/', '|' !)"
+
           send "$env(POSTGRESQL_PASSWORD)\r"
 
           expect "Please give a SERVER.DOMAIN for your SSL web server"
+
           send "$env(SERVER_DOMAIN)\r"
 
           expect "Please give the PUBLIC SSL key PATH."
+
           send "$env(PUBLIC_SSL_PATH)\r"
+
           expect "Please give the PRIVATE SSL key PATH."
+
           send "$env(PRIVATE_SSL_PATH)\r"
 
           expect "Please give your SMTP server address - the outgoing mail server."
+
           send "$env(SMTP_SERVER_ADDRESS)\r"
+
           expect "Please give your SMTP PORT address - for the outgoing mail server."
+
           send "$env(SMTP_PORT_ADDRESS)\r"
+
           expect "Please give your SMTP SSL option - for the outgoing mail server."
+
           send "$env(SMTP_SSL_OPTION)\r"
+
           expect "Please give your SMTP TLS option - for the outgoing mail server."
+
           send "$env(SMTP_TLS_OPTION)\r"
+
           expect "Please give your SMTP user name - for the outgoing mail server."
+
           send "$env(SMTP_USERNAME)\r"
+
           expect "Please give your SMTP password - for the outgoing mail server."
+
           send "$env(SMTP_PASSWORD)\r"
 
           expect "Please give this TiledViz email - for the outgoing mail server."
+
           send "$env(TILEDVIZ_EMAIL)\r"
 
           expect "Please give your IMAP server address - the ingoing mail server."
+
           send "$env(IMAP_SERVER_ADDRESS)\r"
+
           expect "Please give your IMAP PORT address - for the ingoing mail server."
+
           send "$env(IMAP_PORT_ADDRESS)\r"
 
           expect "Please give your NTP server address - the time server."
+
           send "$env(NTP_SERVER_ADDRESS)\r"
 
           expect "# Do you want to restore from a PostgreSQL dump file ? Please give the path to file or empty string if not"
+
           send "\r\r"
 
           expect " All finished."
-          EOF
-      - name: Launch TiledViz in Background
-        env:
-          POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD }}
-        run: |
-          export PYTHONPATH="$PWD:$PWD/TVDatabase:$PYTHONPATH"
-        
-          expect << 'EOF' &
-          set timeout 120
-          spawn ./launch_TiledViz
-          expect "Please give a password for your Flask server."
-          send "$env(POSTGRESQL_PASSWORD)\r"
-          
-          expect "==== Running ... ===="
-          interact
-          EOF
-          
-          sleep 5
 
-      - name: Wait for Server to be Responsive
+          EOF
+
+      - name: Launch TiledViz and Verify Startup
+
+        env:
+
+          POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD }}
+
         run: |
-          timeout 60s bash -c 'until curl -k --fail https://${{ secrets.SERVER_DOMAIN }}; do sleep 2; echo "Attente du démarrage du serveur..."; done' || (echo "❌ Timeout" && exit 1)
+
+          export PYTHONPATH="$PWD:$PWD/TVDatabase:$PYTHONPATH"
+
+          cat << 'SH_EOF' > run_launch.sh
+
+          expect << 'EXPECT_EOF'
+
+          set timeout 120
+
+          spawn ./launch_TiledViz
+
+          expect "Please give a password for your Flask server."
+
+          send "$env(POSTGRESQL_PASSWORD)\r"
+
+          expect "==== Running ... ===="
+
+          set timeout 5
+
+          expect {
+
+              eof {
+
+                  send_user "\n❌ ERROR : Server Crashed\n"
+
+                  exit 1
+
+              }
+
+              timeout {
+
+                  send_user "\n✅ SUCCESS : Server Stable\n"
+
+                  exit 0
+
+              }
+
+          }
+
+          EXPECT_EOF
+
+          SH_EOF
+
+          chmod +x run_launch.sh
+
+          ./run_launch.sh
 
       - name: Get local Runner IP
+
         id: get-ip
+
         run: echo "RUNNER_IP=$(hostname -I | awk '{print $1}')" >> $GITHUB_ENV
 
       - name: ZAP Scan
+
         uses: zaproxy/action-full-scan@v0.13.0
+
         with:
+
           target: "https://${{ env.RUNNER_IP }}"
         
 
