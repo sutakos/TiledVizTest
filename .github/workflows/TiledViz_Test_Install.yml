@@ -136,10 +136,14 @@ jobs:
           chmod +x run_launch.sh
           ./run_launch.sh
 
+      - name: Get local Runner IP
+        id: get-ip
+        run: echo "RUNNER_IP=$(hostname -I | awk '{print $1}')" >> $GITHUB_ENV
+
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.13.0
         with:
-          target: "https://127.0.0.1"
+          target: "https://${{ env.RUNNER_IP }}"
           docker_options: "--network host"
 
         
