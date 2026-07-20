@@ -159,7 +159,7 @@ jobs:
         run: |
           cat << 'EOF' > rocky.env
           POSTGRESQL_PASSWORD=${{ secrets.POSTGRESQL_PASSWORD }}
-          SERVER_DOMAIN=${{ secrets.SERVER_DOMAIN }}
+          SERVER_DOMAIN=tiledVizInstall.ci
           PUBLIC_SSL_PATH=/etc/letsencrypt/archive/fullchain.pem
           PRIVATE_SSL_PATH=/etc/letsencrypt/archive/privkey.pem
           SMTP_SERVER_ADDRESS=${{ secrets.SMTP_SERVER_ADDRESS }}
