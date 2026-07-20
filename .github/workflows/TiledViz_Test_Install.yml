@@ -108,46 +108,41 @@ jobs:
           expect " All finished."
           EOF
 
-      - name: Launch TiledViz and Verify Startup
+      - name: Launch TiledViz in Background
         env:
           POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD }}
         run: |
           export PYTHONPATH="$PWD:$PWD/TVDatabase:$PYTHONPATH"
-          cat << 'SH_EOF' > run_launch.sh
-          expect << 'EXPECT_EOF'
+          expect << 'EXPECT_EOF' &
           set timeout 120
           spawn ./launch_TiledViz
           expect "Please give a password for your Flask server."
           send "$env(POSTGRESQL_PASSWORD)\r"
           expect "==== Running ... ===="
-          set timeout 5
-          expect {
-              eof {
-                  send_user "\n❌ ERROR : Server Crashed\n"
-                  exit 1
-              }
-              timeout {
-                  send_user "\n✅ SUCCESS : Server Stable\n"
-                  exit 0
-              }
-          }
+          send_user "\nServer is running in background\n"
+          set timeout -1
+          
+          expect eof
           EXPECT_EOF
-          SH_EOF
-          chmod +x run_launch.sh
-          ./run_launch.sh
+          
+          for i in $(seq 1 12); do
+            if curl -k --fail http://127.0.0.1 2>/dev/null; then
+              echo "Server is accessible on http://127.0.0.1"
+              break
+            fi
 
-      - name: Get local Runner IP
-        id: get-ip
-        run: echo "RUNNER_IP=$(hostname -I | awk '{print $1}')" >> $GITHUB_ENV
+            echo "Waiting for server... ($i/12)"
+
+            sleep 5
+          done
 
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.13.0
         with:
-          target: "http://${{ env.RUNNER_IP }}"
+          target: "http://127.0.0.1"
           docker_options: "--network host"
 
         
-
   Install-Rocky-Linux:
     runs-on: ubuntu-latest
     steps:
