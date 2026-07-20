@@ -112,6 +112,7 @@ jobs:
         env:
           POSTGRESQL_PASSWORD: ${{ secrets.POSTGRESQL_PASSWORD }}
         run: |
+          ls -la TVDatabase/TVDb/models.py
           export PYTHONPATH="$PWD:$PWD/TVDatabase:$PYTHONPATH"
           expect << 'EOF'
           set timeout 120
